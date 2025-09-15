@@ -1,1 +1,48 @@
-# No experiment code was provided to refactor.
+
+output_dir: ".research/iteration3"
+
+smoke_test:
+  batch_size: 2
+  num_blocks: 12
+  patch_size: 8
+  max_iterations: 100
+
+experiments:
+  pareto_frontier:
+    lambda_values: [0.02, 0.05, 0.08, 0.12, 0.16, 0.20, 0.25, 0.30]
+    models: ["SD-1.5", "DiT-XL/2", "SD-lite-200M"]
+    baselines: ["DDIM-50", "Faster-Diffusion", "HALO", "AQ-Diffusion-INT8", "ASE-DDPM"]
+    epochs: 10
+    
+  zero_shot_portability:
+    devices: 
+      - "NVIDIA A100"
+      - "Jetson Orin Nano" 
+      - "Jetson Orin NX"
+      - "Google Pixel 7 TPU"
+      - "Apple M2"
+    num_samples: 10000
+    
+  safety_net_robustness:
+    stress_scenarios: 
+      - "rare_word_prompts"
+      - "weight_noise_injection" 
+      - "synthetic_distribution_shift"
+      - "adversarial_prompts"
+    num_samples: 20000
+    safety_threshold: 0.035
+
+training:
+  epochs: 10
+  learning_rate: 3e-4
+  quantizer_learning_rate: 1e-3
+  batch_size: 256
+  weight_decay: 0.01
+  gumbel_tau_start: 1.0
+  gumbel_tau_end: 0.1
+  lambda_start: 0.0
+  lambda_end: 0.30
+  mu: 0.05
+  
+logging:
+  level: "INFO"

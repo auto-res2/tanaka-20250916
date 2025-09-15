@@ -1,0 +1,89 @@
+{
+  "experiment": "safety_net_robustness",
+  "stress_scenarios": [
+    "rare_word_prompts",
+    "weight_noise_injection",
+    "synthetic_distribution_shift",
+    "adversarial_prompts"
+  ],
+  "safety_threshold": 0.035,
+  "results": {
+    "rare_word_prompts": {
+      "num_samples": 20000,
+      "trigger_rate_percent": 2.974646904988581,
+      "false_positive_rate_percent": 1.8806236976196284,
+      "safety_on": {
+        "fid_drift": 0.2066061563638592,
+        "clipscore_drift": -0.01016676178031453,
+        "latency_overhead_percent": 3.78723721011427
+      },
+      "safety_off": {
+        "fid_drift": 2.0379512855426425,
+        "clipscore_drift": -0.05795345147633886,
+        "latency_overhead_percent": 0.0
+      },
+      "precision_escalations": {
+        "int4_to_int8": 416,
+        "int8_to_fp16": 178
+      }
+    },
+    "weight_noise_injection": {
+      "num_samples": 20000,
+      "trigger_rate_percent": 6.717650386456741,
+      "false_positive_rate_percent": 1.9697952481634498,
+      "safety_on": {
+        "fid_drift": 0.14136243686392064,
+        "clipscore_drift": 0.007842361188585958,
+        "latency_overhead_percent": 2.6620230475361923
+      },
+      "safety_off": {
+        "fid_drift": 2.1764451241485396,
+        "clipscore_drift": -0.12393139924794472,
+        "latency_overhead_percent": 0.0
+      },
+      "precision_escalations": {
+        "int4_to_int8": 940,
+        "int8_to_fp16": 403
+      }
+    },
+    "synthetic_distribution_shift": {
+      "num_samples": 20000,
+      "trigger_rate_percent": 6.585741613890732,
+      "false_positive_rate_percent": 1.798551316485802,
+      "safety_on": {
+        "fid_drift": 0.10348038816192254,
+        "clipscore_drift": -0.0061416580084688276,
+        "latency_overhead_percent": 5.137928706121623
+      },
+      "safety_off": {
+        "fid_drift": 1.1167293296534662,
+        "clipscore_drift": -0.13911179188373496,
+        "latency_overhead_percent": 0.0
+      },
+      "precision_escalations": {
+        "int4_to_int8": 922,
+        "int8_to_fp16": 395
+      }
+    },
+    "adversarial_prompts": {
+      "num_samples": 20000,
+      "trigger_rate_percent": 4.295434568080888,
+      "false_positive_rate_percent": 1.062802142066617,
+      "safety_on": {
+        "fid_drift": 0.17012208654306582,
+        "clipscore_drift": -0.004115223238172601,
+        "latency_overhead_percent": 5.274840015122493
+      },
+      "safety_off": {
+        "fid_drift": 2.4412577582268784,
+        "clipscore_drift": -0.08743771133532216,
+        "latency_overhead_percent": 0.0
+      },
+      "precision_escalations": {
+        "int4_to_int8": 601,
+        "int8_to_fp16": 257
+      }
+    }
+  },
+  "analysis_plot": ".research/iteration3/images/safety_net_analysis.png"
+}

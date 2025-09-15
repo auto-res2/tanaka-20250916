@@ -1,1 +1,32 @@
-# No experiment code was provided to refactor.
+
+output_dir: ".research/iteration3"
+
+smoke_test:
+  batch_size: 2
+  num_blocks: 4
+  patch_size: 16
+  max_iterations: 10
+
+experiments:
+  pareto_frontier:
+    lambda_values: [0.05, 0.15, 0.25]
+    models: ["SD-1.5"]
+    baselines: ["DDIM-50", "HALO"]
+    epochs: 1
+    
+  zero_shot_portability:
+    devices: ["NVIDIA A100", "Jetson Orin Nano"]
+    num_samples: 100
+    
+  safety_net_robustness:
+    stress_scenarios: ["rare_word_prompts", "weight_noise_injection"]
+    num_samples: 1000
+    safety_threshold: 0.035
+
+training:
+  epochs: 1
+  learning_rate: 3e-4
+  batch_size: 32
+  
+logging:
+  level: "INFO"
