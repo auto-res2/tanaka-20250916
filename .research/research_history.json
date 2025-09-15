@@ -24,7 +24,8 @@
           "Jian Yang"
         ],
         "published_date": "2023-12-15T08:46:43Z",
-        "pdf_url": "https://arxiv.org/pdf/2312.09608v2.pdf"
+        "pdf_url": "https://arxiv.org/pdf/2312.09608v2.pdf",
+        "github_url": "https://github.com/deep-floyd/IF"
       },
       "llm_extracted_info": {
         "main_contributions": "The paper addresses the slow inference time of diffusion models for image generation by proposing an acceleration method that does not rely on knowledge distillation or retraining. Key contributions include an empirical study revealing minimal changes in UNet encoder features across time-steps compared to substantial decoder feature variations. Based on this, the authors introduce 'encoder propagation' to reuse encoder features from previous time-steps, enabling parallel decoder computation for significant acceleration. They also propose a prior noise injection method to improve texture details. The method achieves substantial speedups (e.g., 41% for Stable Diffusion, 24% for DeepFloyd-IF, 34% for DiT) while maintaining high generation quality and is compatible with existing acceleration techniques across diverse tasks like text-to-image, text-to-video, personalized, and reference-guided generation.",
