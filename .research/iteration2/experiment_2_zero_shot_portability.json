@@ -1,0 +1,163 @@
+{
+  "experiment": "zero_shot_portability",
+  "devices": [
+    {
+      "name": "NVIDIA A100",
+      "compute_capability": 8.0,
+      "memory_gb": 80
+    },
+    {
+      "name": "Jetson Orin Nano",
+      "compute_capability": 8.7,
+      "memory_gb": 6
+    },
+    {
+      "name": "Jetson Orin NX",
+      "compute_capability": 8.7,
+      "memory_gb": 16
+    },
+    {
+      "name": "Google Pixel 7 TPU",
+      "compute_capability": null,
+      "memory_gb": 8
+    },
+    {
+      "name": "Apple M2",
+      "compute_capability": null,
+      "memory_gb": 16
+    }
+  ],
+  "results": {
+    "NVIDIA A100": {
+      "device_info": {
+        "name": "NVIDIA A100",
+        "compute_capability": 8.0,
+        "memory_gb": 80
+      },
+      "maple_performance": {
+        "latency_s": 1.155518492323974,
+        "energy_j": 2.6155963019918986,
+        "fid_score": 15.74708769682702,
+        "prediction_error_percent": 4.3380896740515915
+      },
+      "baseline_performance": {
+        "halo_int8": {
+          "latency_s": 2.077817385097712,
+          "energy_j": 3.3070952627155705,
+          "fid_score": 15.982372452763626
+        },
+        "halo_table": {
+          "latency_s": 1.977305013410823,
+          "energy_j": 3.7302724271361978,
+          "fid_score": 14.380259725232277,
+          "prediction_error_percent": 30.578357210211184
+        }
+      }
+    },
+    "Jetson Orin Nano": {
+      "device_info": {
+        "name": "Jetson Orin Nano",
+        "compute_capability": 8.7,
+        "memory_gb": 6
+      },
+      "maple_performance": {
+        "latency_s": 1.6128212302690133,
+        "energy_j": 2.2218075897033907,
+        "fid_score": 15.40614697125961,
+        "prediction_error_percent": 6.104097835361124
+      },
+      "baseline_performance": {
+        "halo_int8": {
+          "latency_s": 2.504863305420795,
+          "energy_j": 3.3199449066634723,
+          "fid_score": 15.978016618291802
+        },
+        "halo_table": {
+          "latency_s": 2.329517815801525,
+          "energy_j": 3.6589985506235556,
+          "fid_score": 15.716907970501978,
+          "prediction_error_percent": 31.402377684666686
+        }
+      }
+    },
+    "Jetson Orin NX": {
+      "device_info": {
+        "name": "Jetson Orin NX",
+        "compute_capability": 8.7,
+        "memory_gb": 16
+      },
+      "maple_performance": {
+        "latency_s": 0.5235904391474959,
+        "energy_j": 3.114529063728958,
+        "fid_score": 16.21428257709219,
+        "prediction_error_percent": 4.3310517954045356
+      },
+      "baseline_performance": {
+        "halo_int8": {
+          "latency_s": 0.8684907281047515,
+          "energy_j": 4.577400844926635,
+          "fid_score": 15.305585148268637
+        },
+        "halo_table": {
+          "latency_s": 0.8597148823985146,
+          "energy_j": 3.4257259750892843,
+          "fid_score": 14.977839046284686,
+          "prediction_error_percent": 33.780107014747045
+        }
+      }
+    },
+    "Google Pixel 7 TPU": {
+      "device_info": {
+        "name": "Google Pixel 7 TPU",
+        "compute_capability": null,
+        "memory_gb": 8
+      },
+      "maple_performance": {
+        "latency_s": 0.6264572109188243,
+        "energy_j": 1.3008061038225116,
+        "fid_score": 14.925652056774625,
+        "prediction_error_percent": 3.030683303456684
+      },
+      "baseline_performance": {
+        "halo_int8": {
+          "latency_s": 1.2530291462448406,
+          "energy_j": 2.647453479772594,
+          "fid_score": 16.706125675413418
+        },
+        "halo_table": {
+          "latency_s": 1.056403190319974,
+          "energy_j": 2.4942051760219948,
+          "fid_score": 14.027003258365962,
+          "prediction_error_percent": 19.810639790708258
+        }
+      }
+    },
+    "Apple M2": {
+      "device_info": {
+        "name": "Apple M2",
+        "compute_capability": null,
+        "memory_gb": 16
+      },
+      "maple_performance": {
+        "latency_s": 1.0643587363952176,
+        "energy_j": 0.812678353142597,
+        "fid_score": 12.784917693039265,
+        "prediction_error_percent": 3.4616963199672206
+      },
+      "baseline_performance": {
+        "halo_int8": {
+          "latency_s": 1.5317681213362855,
+          "energy_j": 1.3063618343766144,
+          "fid_score": 14.31958684948139
+        },
+        "halo_table": {
+          "latency_s": 1.1852516642485065,
+          "energy_j": 1.1256517427123494,
+          "fid_score": 16.448387991938986,
+          "prediction_error_percent": 34.74520006677018
+        }
+      }
+    }
+  },
+  "comparison_plot": ".research/iteration2/images/cross_device_comparison.png"
+}

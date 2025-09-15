@@ -1,0 +1,8 @@
+{
+  "test_type": "smoke_test",
+  "batch_size": 2,
+  "loss": 5084182016.0,
+  "flop_cost": 50841817088.0,
+  "device": "cpu",
+  "timestamp": 1757958511.311446
+}
