@@ -110,7 +110,265 @@
         "DreamFusion-Mini",
         "LAION-Aesthetics-6+ Prompt Subset",
         "Hard-Prompt-5k"
-      ]
+      ],
+      "external_resources": {
+        "hugging_face": {
+          "models": [
+            {
+              "id": "SidXXD/resnet50_eps16_iter10_ddim50_t3-47600-bird-adv",
+              "author": "SidXXD",
+              "sha": "2819dc281c660a0de7ff8d2e02e39407e074ab84",
+              "created_at": "2024-06-18T16:57:43+00:00",
+              "last_modified": "2024-06-18T17:16:40+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 0,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "<v1*>.bin"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_0.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_1.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_10.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_100.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_101.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_102.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_103.png"
+                }
+              ],
+              "card_data": {
+                "license": "creativeml-openrail-m",
+                "language": [],
+                "tags": [
+                  "stable-diffusion",
+                  "stable-diffusion-diffusers",
+                  "text-to-image",
+                  "diffusers",
+                  "custom-diffusion"
+                ],
+                "datasets": [],
+                "base_model": "stabilityai/stable-diffusion-2-1-base",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": []
+              },
+              "tags": [
+                "diffusers",
+                "tensorboard",
+                "safetensors",
+                "stable-diffusion",
+                "stable-diffusion-diffusers",
+                "text-to-image",
+                "custom-diffusion",
+                "base_model:stabilityai/stable-diffusion-2-1-base",
+                "base_model:adapter:stabilityai/stable-diffusion-2-1-base",
+                "license:creativeml-openrail-m",
+                "region:us"
+              ],
+              "pipeline_tag": "text-to-image",
+              "library_name": "diffusers",
+              "readme": "\n---\nlicense: creativeml-openrail-m\nbase_model: stabilityai/stable-diffusion-2-1-base\ninstance_prompt: photo of a <v1*> bird\ntags:\n- stable-diffusion\n- stable-diffusion-diffusers\n- text-to-image\n- diffusers\n- custom-diffusion\ninference: true\n---\n    \n# Custom Diffusion - SidXXD/resnet50_eps16_iter10_ddim50_t3-47600-bird-adv\n\nThese are Custom Diffusion adaption weights for stabilityai/stable-diffusion-2-1-base. The weights were trained on photo of a <v1*> bird using [Custom Diffusion](https://www.cs.cmu.edu/~custom-diffusion). You can find some example images in the following. \n\n\n\n\nFor more details on the training, please follow [this link](https://github.com/huggingface/diffusers/blob/main/examples/custom_diffusion).\n",
+              "extracted_code": ""
+            },
+            {
+              "id": "SidXXD/resnet50_eps16_iter10_ddim50_t3-47600-bird-clean",
+              "author": "SidXXD",
+              "sha": "a19899536828d6ab0ceabd1526dc33ce7427e338",
+              "created_at": "2024-06-18T16:59:10+00:00",
+              "last_modified": "2024-06-18T17:16:28+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 0,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "<v1*>.bin"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_0.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_1.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_10.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_100.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_101.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_102.png"
+                },
+                {
+                  "rfilename": "all_attention_embed/output_0_103.png"
+                }
+              ],
+              "card_data": {
+                "license": "creativeml-openrail-m",
+                "language": [],
+                "tags": [
+                  "stable-diffusion",
+                  "stable-diffusion-diffusers",
+                  "text-to-image",
+                  "diffusers",
+                  "custom-diffusion"
+                ],
+                "datasets": [],
+                "base_model": "stabilityai/stable-diffusion-2-1-base",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": []
+              },
+              "tags": [
+                "diffusers",
+                "tensorboard",
+                "safetensors",
+                "stable-diffusion",
+                "stable-diffusion-diffusers",
+                "text-to-image",
+                "custom-diffusion",
+                "base_model:stabilityai/stable-diffusion-2-1-base",
+                "base_model:adapter:stabilityai/stable-diffusion-2-1-base",
+                "license:creativeml-openrail-m",
+                "region:us"
+              ],
+              "pipeline_tag": "text-to-image",
+              "library_name": "diffusers",
+              "readme": "\n---\nlicense: creativeml-openrail-m\nbase_model: stabilityai/stable-diffusion-2-1-base\ninstance_prompt: photo of a <v1*> bird\ntags:\n- stable-diffusion\n- stable-diffusion-diffusers\n- text-to-image\n- diffusers\n- custom-diffusion\ninference: true\n---\n    \n# Custom Diffusion - SidXXD/resnet50_eps16_iter10_ddim50_t3-47600-bird-clean\n\nThese are Custom Diffusion adaption weights for stabilityai/stable-diffusion-2-1-base. The weights were trained on photo of a <v1*> bird using [Custom Diffusion](https://www.cs.cmu.edu/~custom-diffusion). You can find some example images in the following. \n\n\n\n\nFor more details on the training, please follow [this link](https://github.com/huggingface/diffusers/blob/main/examples/custom_diffusion).\n",
+              "extracted_code": ""
+            }
+          ],
+          "datasets": [
+            {
+              "id": "gitpull/Imagenet_64x64",
+              "author": "gitpull",
+              "sha": "217af7b2bfd11bfbadce4dc9088377d7fd85fbf9",
+              "created_at": "2024-12-27T03:28:51+00:00",
+              "last_modified": "2024-12-27T04:09:00+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 7,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "ImageNet.zip"
+                },
+                {
+                  "rfilename": "README.md"
+                }
+              ],
+              "card_data": {
+                "license": "apache-2.0",
+                "language": [],
+                "tags": [],
+                "datasets": [],
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": []
+              },
+              "tags": [
+                "license:apache-2.0",
+                "region:us"
+              ],
+              "readme": "---\r\nlicense: apache-2.0\r\n---\r\n",
+              "extracted_code": ""
+            },
+            {
+              "id": "mlfoundations-cua-dev/easyr1-49k-hard-qwen7b-easy-gta1-stacked-pro-apps-no-resolution-in-prompt-ui-vision-5k-jedi-4MP",
+              "author": "mlfoundations-cua-dev",
+              "sha": "46c65510b7997c4f1bc49e3cbba45ec61053263e",
+              "created_at": "2025-09-14T03:27:06+00:00",
+              "last_modified": "2025-09-14T03:27:32+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 30,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "dataset_dict.json"
+                },
+                {
+                  "rfilename": "train/data-00000-of-00012.arrow"
+                },
+                {
+                  "rfilename": "train/data-00001-of-00012.arrow"
+                },
+                {
+                  "rfilename": "train/data-00002-of-00012.arrow"
+                },
+                {
+                  "rfilename": "train/data-00003-of-00012.arrow"
+                },
+                {
+                  "rfilename": "train/data-00004-of-00012.arrow"
+                },
+                {
+                  "rfilename": "train/data-00005-of-00012.arrow"
+                },
+                {
+                  "rfilename": "train/data-00006-of-00012.arrow"
+                }
+              ],
+              "tags": [
+                "size_categories:10K<n<100K",
+                "format:arrow",
+                "modality:image",
+                "modality:text",
+                "library:datasets",
+                "library:mlcroissant",
+                "region:us"
+              ],
+              "readme": "# easyr1-49k-hard-qwen7b-easy-gta1-4MP-stacked-pro-apps-no-resolution-in-prompt-ui-vision-grounding-4MP-add-5k-jedi\n\nMerged dataset composed of the following sources:\n- `datasets/easyr1-44k-hard-qwen7b-easy-gta1-4MP-stacked-pro-apps-no-resolution-in-prompt-ui-vision-grounding-4MP` (44769 samples in split `train`)\n- `datasets/easyr1-21k-jedi-grounding-4MP-gta1-nores-fixed` (18032 samples in split `train`)\n\n## Summary\n\n- **Generated on**: 2025-09-14 03:24:59 UTC\n- **Split**: `train`\n- **Column strategy**: `intersection`\n- **Samples after merge**: 49769\n\n## Usage\n\n```python\nfrom datasets import load_dataset\nds = load_dataset(\"easyr1-49k-hard-qwen7b-easy-gta1-4MP-stacked-pro-apps-no-resolution-in-prompt-ui-vision-grounding-4MP-add-5k-jedi\")\nsplit = ds[\"train\"]\nprint(len(split))\nprint(split.column_names)\n```",
+              "extracted_code": "from datasets import load_dataset\nds = load_dataset(\"easyr1-49k-hard-qwen7b-easy-gta1-4MP-stacked-pro-apps-no-resolution-in-prompt-ui-vision-grounding-4MP-add-5k-jedi\")\nsplit = ds[\"train\"]\nprint(len(split))\nprint(split.column_names)"
+            }
+          ]
+        }
+      }
     }
   },
   "idea_info_history": [
