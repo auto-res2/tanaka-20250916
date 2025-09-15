@@ -1,0 +1,22 @@
+Using CPython 3.11.13
+Creating virtual environment at: .venv
+  × No solution found when resolving dependencies:
+  ╰─▶ Because clip-by-openai>=1.0.1 depends on torchvision==0.8.2 and only the
+      following versions of clip-by-openai are available:
+          clip-by-openai<1.0
+          clip-by-openai==1.0.1
+          clip-by-openai==1.1
+      we can conclude that clip-by-openai>=1.0 depends on torchvision==0.8.2.
+      And because your project depends on clip-by-openai>=1.0 and
+      torchvision>=0.16.0, we can conclude that your project's requirements
+      are unsatisfiable.
+  × No solution found when resolving dependencies:
+  ╰─▶ Because clip-by-openai>=1.0.1 depends on torchvision==0.8.2 and only the
+      following versions of clip-by-openai are available:
+          clip-by-openai<1.0
+          clip-by-openai==1.0.1
+          clip-by-openai==1.1
+      we can conclude that clip-by-openai>=1.0 depends on torchvision==0.8.2.
+      And because your project depends on clip-by-openai>=1.0 and
+      torchvision>=0.16.0, we can conclude that your project's requirements
+      are unsatisfiable.
