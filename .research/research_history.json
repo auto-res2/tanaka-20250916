@@ -107,7 +107,1386 @@
         "Custom Artistic Prompt Set",
         "Custom Medical Caption Set",
         "DreamBooth Concepts (50 public instances)"
-      ]
+      ],
+      "external_resources": {
+        "hugging_face": {
+          "models": [
+            {
+              "id": "ckpt/lcm-sdxl-unet",
+              "author": "ckpt",
+              "sha": "4105ed1fef6385492000f367f8997addc3249df0",
+              "created_at": "2023-11-09T22:01:59+00:00",
+              "last_modified": "2023-11-09T22:08:55+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 43,
+              "likes": 1,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "config.json"
+                },
+                {
+                  "rfilename": "diffusion_pytorch_model.fp16.safetensors"
+                },
+                {
+                  "rfilename": "diffusion_pytorch_model.safetensors"
+                },
+                {
+                  "rfilename": "image.png"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [],
+                "library_name": "diffusers",
+                "tags": [
+                  "text-to-image"
+                ],
+                "datasets": [],
+                "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": []
+              },
+              "tags": [
+                "diffusers",
+                "safetensors",
+                "text-to-image",
+                "arxiv:2310.04378",
+                "base_model:stabilityai/stable-diffusion-xl-base-1.0",
+                "base_model:finetune:stabilityai/stable-diffusion-xl-base-1.0",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "text-to-image",
+              "library_name": "diffusers",
+              "readme": "---\nlibrary_name: diffusers\nbase_model: stabilityai/stable-diffusion-xl-base-1.0\ntags:\n- text-to-image\nlicense: openrail++\ninference: false\n---\n\n# Latent Consistency Model (LCM): SDXL\n\nLatent Consistency Model (LCM) was proposed in [Latent Consistency Models: Synthesizing High-Resolution Images with Few-Step Inference](https://arxiv.org/abs/2310.04378) \nby *Simian Luo, Yiqin Tan et al.* and [Simian Luo](https://huggingface.co/SimianLuo), [Suraj Patil](https://huggingface.co/valhalla), and [Daniel Gu](https://huggingface.co/dg845)\nsuccesfully applied the same approach to create LCM for SDXL.\n\nThis checkpoint is a LCM distilled version of [`stable-diffusion-xl-base-1.0`](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) that allows\nto reduce the number of inference steps to only between **2 - 8 steps**.\n\n\n## Usage\n\nLCM SDXL is supported in 🤗 Hugging Face Diffusers library from version v0.23.0 onwards. To run the model, first \ninstall the latest version of the Diffusers library as well as `peft`, `accelerate` and `transformers`.\naudio dataset from the Hugging Face Hub:\n\n```bash\npip install --upgrade pip\npip install --upgrade diffusers transformers accelerate peft\n```\n\n### Text-to-Image\n\nThe model can be loaded with it's base pipeline `stabilityai/stable-diffusion-xl-base-1.0`. Next, the scheduler needs to be changed to [`LCMScheduler`](https://huggingface.co/docs/diffusers/v0.22.3/en/api/schedulers/lcm#diffusers.LCMScheduler) and we can reduce the number of inference steps to just 2 to 8 steps.\nPlease make sure to either disable `guidance_scale` or use values between 1.0 and 2.0.\n\n```python\nfrom diffusers import UNet2DConditionModel, DiffusionPipeline, LCMScheduler\n\nunet = UNet2DConditionModel.from_pretrained(\"latent-consistency/lcm-sdxl\", torch_dtype=torch.float16, variant=\"fp16\")\npipe = DiffusionPipeline.from_pretrained(\"stabilityai/stable-diffusion-xl-base-1.0\", unet=unet, torch_dtype=torch.float16, variant=\"fp16\")\n\npipe.scheduler = LCMScheduler.from_config(sd_pipe.scheduler.config)\npipe.to(\"cuda\")\n\nprompt = \"a close-up picture of an old man standing in the rain\"\n\nimage = pipe(prompt, num_inference_steps=4, guidance_scale=8.0).images[0]\n```\n\n![](./image.png)\n\n### Image-to-Image\n\nWorks as well! TODO docs\n\n### Inpainting\n\nWorks as well! TODO docs\n\n### ControlNet\n\nWorks as well! TODO docs\n\n### T2I Adapter\n\nWorks as well! TODO docs\n\n## Speed Benchmark\n\nTODO\n\n## Training\n\nTODO",
+              "extracted_code": "from diffusers import UNet2DConditionModel, DiffusionPipeline, LCMScheduler\n\nunet = UNet2DConditionModel.from_pretrained(\"latent-consistency/lcm-sdxl\", torch_dtype=torch.float16, variant=\"fp16\")\npipe = DiffusionPipeline.from_pretrained(\"stabilityai/stable-diffusion-xl-base-1.0\", unet=unet, torch_dtype=torch.float16, variant=\"fp16\")\n\npipe.scheduler = LCMScheduler.from_config(sd_pipe.scheduler.config)\npipe.to(\"cuda\")\n\nprompt = \"a close-up picture of an old man standing in the rain\"\n\nimage = pipe(prompt, num_inference_steps=4, guidance_scale=8.0).images[0]"
+            },
+            {
+              "id": "refiners/sdxl.unet",
+              "author": "refiners",
+              "sha": "52a645e5b604a94a9d2b0c0e56b6ae059e80987b",
+              "created_at": "2024-08-23T12:23:38+00:00",
+              "last_modified": "2024-10-11T14:11:32+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 34,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "model.safetensors"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [
+                  "en"
+                ],
+                "library_name": "refiners",
+                "pipeline_tag": "image-to-image",
+                "tags": [
+                  "image-to-image",
+                  "stable-diffusion",
+                  "sdxl",
+                  "art"
+                ],
+                "datasets": [],
+                "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "dandelions and a glorious sunset, by photographer Lee Jeffries nikon d850 film stock photograph 4 kodak portra 400 camera f1.6 lens rich colors hyper realistic lifelike texture dramatic lighting unrealengine trending on artstation cinestill 800",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8fd4b025-30f1-4ca0-b142-ad4b546c3158/width=896/8fd4b025-30f1-4ca0-b142-ad4b546c3158.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777610"
+                    }
+                  },
+                  {
+                    "text": "masterpiece, best quality, gorgeous pale american cute girl, smiling, (crop top), red hair loose braided hair, short polca skirt, lean against a tree, field, flowers smiling, perfectly symmetrical face, detailed skin, elegant, alluring, attractive, amazing photograph, masterpiece, best quality, 8K, high quality, photorealistic, realism, art photography, Nikon D850, 16k, sharp focus, masterpiece, breathtaking, atmospheric perspective, diffusion, pore correlation, skin imperfections, DSLR, 80mm Sigma f2, depth of field, intricate natural lighting, looking at camara",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8f9573d7-5616-4260-a967-53343afd5e33/width=896/8f9573d7-5616-4260-a967-53343afd5e33.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777436"
+                    }
+                  },
+                  {
+                    "text": "cinematic still, filmed by Guillermo del Toro, Amidst a deep dark forest, an enigmatic being appears--an amalgamation of flora and fauna, with vines for hair, eyes gleaming like embers, and skin adorned with iridescent scales",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7e8b8587-c647-4f9b-86a2-301c95ac938f/width=896/7e8b8587-c647-4f9b-86a2-301c95ac938f.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777443"
+                    }
+                  },
+                  {
+                    "text": "Intricate dynamic action shot of cowboy in a shootout, cinematic Steve Henderson Fabian Perez Henry Asencio Jeremy Mann Marc Simonetti Fantasy, red dead redemption 2 atmosphere, cinematic, photograph",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3f0cec62-f60f-4c59-a9a1-35c6c106afa5/width=896/3f0cec62-f60f-4c59-a9a1-35c6c106afa5.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777453"
+                    }
+                  },
+                  {
+                    "text": "photo realistic, ultra details, natural light ultra detailed portrait of a female necromancer, skeleton face volumetric fog, Hyperrealism, breathtaking, ultra realistic, ultra detailed, cyber background, cinematic lighting, highly detailed, breathtaking, photography, stunning environment, wide-angle, text_l photo realistic, ultra details, natural light ultra detailed portrait of a female necromancer, skeleton face volumetric fog, Hyperrealism, breathtaking, ultra realistic, ultra detailed, cyber background, cinematic lighting, highly detailed, breathtaking, photography, stunning environment, wide-angle",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/07aa2d9d-3f86-4e5f-aea5-4a06795fde3d/width=896/07aa2d9d-3f86-4e5f-aea5-4a06795fde3d.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777444"
+                    }
+                  },
+                  {
+                    "text": "Victorian man, London, (sharp focus:1.2), extremely detailed, (photorealistic:1.4), (RAW image, 8k high resolution:1.2), RAW candid cinema, 16mm, color graded Portra 400 film, ultra realistic, cinematic film still, subsurface scattering, ray tracing, (volumetric lighting)",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9b32c2c3-88e3-464f-a63a-959877975e25/width=896/9b32c2c3-88e3-464f-a63a-959877975e25.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777447"
+                    }
+                  },
+                  {
+                    "text": "masterpiece, best quality, greg rutkowski, fire, no humans, open mouth, wings, dragon, sharp teeth, teeth, tail, solo, breathing fire, horns, monster, claws, smoke , very detailed, high resolution, sharp, sharp image, 4k, 8k,",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9f3be75d-22ab-4f03-a0c4-bbcf53a3e912/width=896/9f3be75d-22ab-4f03-a0c4-bbcf53a3e912.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777446"
+                    }
+                  },
+                  {
+                    "text": "cinematic still, medium shot on ARRI Alexa 35, a lone hooded figure using chaos magic, low-key color grading, hyper-realistic pop, cyberpunk, Chicago 2087",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/58930429-f1d9-455d-813b-39902e10ba05/width=896/58930429-f1d9-455d-813b-39902e10ba05.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777483"
+                    }
+                  },
+                  {
+                    "text": "Cinematic still, filmed by Alfonso Cuar\\u00f3n, wide-shot, a creature adorned with luminescent feathers that cascade like a vibrant waterfall, their iridescent glow casting an enchanting shimmer upon the surroundings, mythical creature had stepped into our world, exuding an aura of otherworldly beauty and intrigue",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7b714205-111c-4987-be9d-c959d0e34535/width=896/7b714205-111c-4987-be9d-c959d0e34535.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777449"
+                    }
+                  },
+                  {
+                    "text": "a award winning heroic shot of a mountain king in a stunning detailed showcave, epic mountainking meditate about life, long curly beard, glowing blue eyes, cave is like a big dome, fantastic stalagmites and stalactites, (cinematic lighting:1.1), moody lights, heroic pose, in the style of photorealistic fantasy, still from a oscar winning fantasy movie, 50mm zeiss supreme prime lens, clear and sharp focus, shallow dof, fantasycore, stonecore, beautifully color graded, dynamic composition, sparkle, (diamonds:1.1), (lens flare:1.05)",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9ee2da9f-fd34-444f-a652-1553a1c0cabd/width=896/9ee2da9f-fd34-444f-a652-1553a1c0cabd.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777527"
+                    }
+                  },
+                  {
+                    "text": "photography best quality, cinematic still, filmed by [David Fincher], therapy session, day, wide-angle shot, 35mm by Russ Mills, photo by Ashraful Arefin, Anna Nemoy, a sculpture by Antonio Canova",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/43bb50e4-04dd-48d5-b4a8-037b6c36b01c/width=896/43bb50e4-04dd-48d5-b4a8-037b6c36b01c.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777582"
+                    }
+                  },
+                  {
+                    "text": "a set of magical potions with magical properties that can be used to heal someone",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/158ad11b-48c4-470a-aa0b-1162550ecc15/width=896/158ad11b-48c4-470a-aa0b-1162550ecc15.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777452"
+                    }
+                  },
+                  {
+                    "text": "closeup of woman wearing gothic clothes, braided pigtails, in a castle, sharp focus, looking at the night time, Mystical atmosphere, cinematic",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/214985aa-fe49-4ab6-b2d7-6c3d4ce5fd1d/width=896/214985aa-fe49-4ab6-b2d7-6c3d4ce5fd1d.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777448"
+                    }
+                  },
+                  {
+                    "text": "photography best quality, cinematic still, filmed by [David Fincher], therapy session, day, wide-angle shot, 35mm by Russ Mills, photo by Ashraful Arefin, Anna Nemoy, a sculpture by Antonio Canova",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a2363ae8-6045-4e60-82e8-7fecbeb31a79/width=896/a2363ae8-6045-4e60-82e8-7fecbeb31a79.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777586"
+                    }
+                  },
+                  {
+                    "text": "Double exposure of a wolf and a mountain, natural scenery, watercolor",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/60855a55-c29b-4ec7-ab16-20630bc33235/width=896/60855a55-c29b-4ec7-ab16-20630bc33235.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777495"
+                    }
+                  },
+                  {
+                    "text": "arcane style, 1girl, hoodie, arm tattoo, portrait, asymmetrical bangs, bandaid, short hair, bangs, breasts, freckles, grey eyes, large breasts, looking at viewer, neck tattoo, nose piercing, pink hair, scar, scar on face, solo, tattoo on face, upper body, detailed background, town, alley, dark alley, portrait, hood on head, night, angry, close up, closed mouth, , ((masterpiece)), absurdres",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/6bea91aa-e28c-4df1-8391-3889e36c3bf5/width=896/6bea91aa-e28c-4df1-8391-3889e36c3bf5.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777494"
+                    }
+                  },
+                  {
+                    "text": "a beautiful cottage, scotland coastal village, (sharp focus:1.2), extremely detailed, (photorealistic:1.4), (RAW image, 8k high resolution:1.2), RAW candid cinema, 16mm, color graded Portra 400 film, ultra realistic, cinematic film still, subsurface scattering, ray tracing, (volumetric lighting)",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d433f4db-301f-4f1d-a7a0-e9896a679539/width=896/d433f4db-301f-4f1d-a7a0-e9896a679539.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "(deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera",
+                      "civitai": "https://civitai.com/images/1777496"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "refiners",
+                "safetensors",
+                "image-to-image",
+                "stable-diffusion",
+                "sdxl",
+                "art",
+                "en",
+                "arxiv:2307.01952",
+                "base_model:stabilityai/stable-diffusion-xl-base-1.0",
+                "base_model:adapter:stabilityai/stable-diffusion-xl-base-1.0",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "image-to-image",
+              "library_name": "refiners",
+              "readme": "---\nwidget:\n- text: dandelions and a glorious sunset, by photographer Lee Jeffries nikon d850 film stock photograph 4 kodak portra 400 camera f1.6 lens rich colors hyper realistic lifelike texture dramatic lighting unrealengine trending on artstation cinestill 800\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8fd4b025-30f1-4ca0-b142-ad4b546c3158/width=896/8fd4b025-30f1-4ca0-b142-ad4b546c3158.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777610\n- text: masterpiece, best quality, gorgeous pale american cute girl, smiling, (crop top), red hair loose braided hair, short polca skirt, lean against a tree, field, flowers smiling, perfectly symmetrical face, detailed skin, elegant, alluring, attractive, amazing photograph, masterpiece, best quality, 8K, high quality, photorealistic, realism, art photography, Nikon D850, 16k, sharp focus, masterpiece, breathtaking, atmospheric perspective, diffusion, pore correlation, skin imperfections, DSLR, 80mm Sigma f2, depth of field, intricate natural lighting, looking at camara\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8f9573d7-5616-4260-a967-53343afd5e33/width=896/8f9573d7-5616-4260-a967-53343afd5e33.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777436\n- text: cinematic still, filmed by Guillermo del Toro, Amidst a deep dark forest, an enigmatic being appears--an amalgamation of flora and fauna, with vines for hair, eyes gleaming like embers, and skin adorned with iridescent scales\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7e8b8587-c647-4f9b-86a2-301c95ac938f/width=896/7e8b8587-c647-4f9b-86a2-301c95ac938f.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777443\n- text: Intricate dynamic action shot of cowboy in a shootout, cinematic Steve Henderson Fabian Perez Henry Asencio Jeremy Mann Marc Simonetti Fantasy, red dead redemption 2 atmosphere, cinematic, photograph\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3f0cec62-f60f-4c59-a9a1-35c6c106afa5/width=896/3f0cec62-f60f-4c59-a9a1-35c6c106afa5.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777453\n- text: photo realistic, ultra details, natural light ultra detailed portrait of a female necromancer, skeleton face volumetric fog, Hyperrealism, breathtaking, ultra realistic, ultra detailed, cyber background, cinematic lighting, highly detailed, breathtaking, photography, stunning environment, wide-angle, text_l photo realistic, ultra details, natural light ultra detailed portrait of a female necromancer, skeleton face volumetric fog, Hyperrealism, breathtaking, ultra realistic, ultra detailed, cyber background, cinematic lighting, highly detailed, breathtaking, photography, stunning environment, wide-angle\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/07aa2d9d-3f86-4e5f-aea5-4a06795fde3d/width=896/07aa2d9d-3f86-4e5f-aea5-4a06795fde3d.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777444\n- text: Victorian man, London, (sharp focus:1.2), extremely detailed, (photorealistic:1.4), (RAW image, 8k high resolution:1.2), RAW candid cinema, 16mm, color graded Portra 400 film, ultra realistic, cinematic film still, subsurface scattering, ray tracing, (volumetric lighting)\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9b32c2c3-88e3-464f-a63a-959877975e25/width=896/9b32c2c3-88e3-464f-a63a-959877975e25.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777447\n- text: masterpiece, best quality, greg rutkowski, fire, no humans, open mouth, wings, dragon, sharp teeth, teeth, tail, solo, breathing fire, horns, monster, claws, smoke , very detailed, high resolution, sharp, sharp image, 4k, 8k,\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9f3be75d-22ab-4f03-a0c4-bbcf53a3e912/width=896/9f3be75d-22ab-4f03-a0c4-bbcf53a3e912.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777446\n- text: cinematic still, medium shot on ARRI Alexa 35, a lone hooded figure using chaos magic, low-key color grading, hyper-realistic pop, cyberpunk, Chicago 2087\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/58930429-f1d9-455d-813b-39902e10ba05/width=896/58930429-f1d9-455d-813b-39902e10ba05.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777483\n- text: Cinematic still, filmed by Alfonso Cuar\\u00f3n, wide-shot, a creature adorned with luminescent feathers that cascade like a vibrant waterfall, their iridescent glow casting an enchanting shimmer upon the surroundings, mythical creature had stepped into our world, exuding an aura of otherworldly beauty and intrigue\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7b714205-111c-4987-be9d-c959d0e34535/width=896/7b714205-111c-4987-be9d-c959d0e34535.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777449\n- text: a award winning heroic shot of a mountain king in a stunning detailed showcave, epic mountainking meditate about life, long curly beard, glowing blue eyes, cave is like a big dome, fantastic stalagmites and stalactites, (cinematic lighting:1.1), moody lights, heroic pose, in the style of photorealistic fantasy, still from a oscar winning fantasy movie, 50mm zeiss supreme prime lens, clear and sharp focus, shallow dof, fantasycore, stonecore, beautifully color graded, dynamic composition, sparkle, (diamonds:1.1), (lens flare:1.05)\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9ee2da9f-fd34-444f-a652-1553a1c0cabd/width=896/9ee2da9f-fd34-444f-a652-1553a1c0cabd.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777527\n- text: photography best quality, cinematic still, filmed by [David Fincher], therapy session, day, wide-angle shot, 35mm by Russ Mills, photo by Ashraful Arefin, Anna Nemoy, a sculpture by Antonio Canova\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/43bb50e4-04dd-48d5-b4a8-037b6c36b01c/width=896/43bb50e4-04dd-48d5-b4a8-037b6c36b01c.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777582\n- text: a set of magical potions with magical properties that can be used to heal someone\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/158ad11b-48c4-470a-aa0b-1162550ecc15/width=896/158ad11b-48c4-470a-aa0b-1162550ecc15.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777452\n- text: closeup of woman wearing gothic clothes, braided pigtails, in a castle, sharp focus, looking at the night time, Mystical atmosphere, cinematic\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/214985aa-fe49-4ab6-b2d7-6c3d4ce5fd1d/width=896/214985aa-fe49-4ab6-b2d7-6c3d4ce5fd1d.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777448\n- text: photography best quality, cinematic still, filmed by [David Fincher], therapy session, day, wide-angle shot, 35mm by Russ Mills, photo by Ashraful Arefin, Anna Nemoy, a sculpture by Antonio Canova\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a2363ae8-6045-4e60-82e8-7fecbeb31a79/width=896/a2363ae8-6045-4e60-82e8-7fecbeb31a79.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777586\n- text: Double exposure of a wolf and a mountain, natural scenery, watercolor\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/60855a55-c29b-4ec7-ab16-20630bc33235/width=896/60855a55-c29b-4ec7-ab16-20630bc33235.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777495\n- text: arcane style, 1girl, hoodie, arm tattoo, portrait, asymmetrical bangs, bandaid, short hair, bangs, breasts, freckles, grey eyes, large breasts, looking at viewer, neck tattoo, nose piercing, pink hair, scar, scar on face, solo, tattoo on face, upper body, detailed background, town, alley, dark alley, portrait, hood on head, night, angry, close up, closed mouth, , ((masterpiece)), absurdres\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/6bea91aa-e28c-4df1-8391-3889e36c3bf5/width=896/6bea91aa-e28c-4df1-8391-3889e36c3bf5.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777494\n- text: a beautiful cottage, scotland coastal village, (sharp focus:1.2), extremely detailed, (photorealistic:1.4), (RAW image, 8k high resolution:1.2), RAW candid cinema, 16mm, color graded Portra 400 film, ultra realistic, cinematic film still, subsurface scattering, ray tracing, (volumetric lighting)\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d433f4db-301f-4f1d-a7a0-e9896a679539/width=896/d433f4db-301f-4f1d-a7a0-e9896a679539.jpeg\n  parameters:\n    negative_prompt: (deformed iris, deformed pupils), text, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera\n    civitai: https://civitai.com/images/1777496\nlicense: openrail++\nbase_model: stabilityai/stable-diffusion-xl-base-1.0\nbase_model_relation: adapter\nlanguage:\n- en\nlibrary_name: refiners\npipeline_tag: image-to-image\ntags:\n- image-to-image\n- stable-diffusion\n- sdxl\n- art\n---\n\n# Stable Diffusion XL\n\n<Gallery />\n\n## Citation\n\n```bibtex\n@misc{podell2023sdxlimprovinglatentdiffusion,\n\ttitle         = {SDXL: Improving Latent Diffusion Models for High-Resolution Image Synthesis},\n\tauthor        = {Dustin Podell and Zion English and Kyle Lacey and Andreas Blattmann and Tim Dockhorn and Jonas Müller and Joe Penna and Robin Rombach},\n\tyear          = 2023,\n\turl           = {https://arxiv.org/abs/2307.01952},\n\teprint        = {2307.01952},\n\tarchiveprefix = {arXiv},\n\tprimaryclass  = {cs.CV}\n}\n```\n",
+              "extracted_code": "from diffusers import DiffusionPipeline\nimport torch\n\npipeline = DiffusionPipeline.from_pretrained(\"stabilityai/stable-diffusion-xl-refiner-1.0\", torch_dtype=torch.float16, variant=\"fp16\", use_safetensors=True)\npipeline.to(\"cuda\")"
+            },
+            {
+              "id": "refiners/sdxl.lightning.1step.unet",
+              "author": "refiners",
+              "sha": "ffb883f511c7915a10adda0372318d5a8bce889a",
+              "created_at": "2024-10-08T21:01:29+00:00",
+              "last_modified": "2024-10-11T14:34:29+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 17,
+              "likes": 1,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "model.safetensors"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [
+                  "en"
+                ],
+                "library_name": "refiners",
+                "pipeline_tag": "image-to-image",
+                "tags": [
+                  "image-to-image",
+                  "stable-diffusion",
+                  "sdxl",
+                  "art"
+                ],
+                "datasets": [],
+                "base_model": "ByteDance/SDXL-Lightning",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "‎",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b9af40da-5147-43d6-b179-e14edc2b0e9b/width=1800/b9af40da-5147-43d6-b179-e14edc2b0e9b.jpeg"
+                    },
+                    "parameters": {
+                      "civitai": "https://civitai.com/images/7980366"
+                    }
+                  },
+                  {
+                    "text": "‎",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c63367b7-30a1-4f73-8ec0-0678209f8388/width=1800/c63367b7-30a1-4f73-8ec0-0678209f8388.jpeg"
+                    },
+                    "parameters": {
+                      "civitai": "https://civitai.com/images/7980368"
+                    }
+                  },
+                  {
+                    "text": "‎",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/541bca2c-8fea-4fd1-bea8-a17b2a8ee0ef/width=1800/541bca2c-8fea-4fd1-bea8-a17b2a8ee0ef.jpeg"
+                    },
+                    "parameters": {
+                      "civitai": "https://civitai.com/images/7980367"
+                    }
+                  },
+                  {
+                    "text": "‎",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/0dea0b57-5e41-47cd-8bcd-c2ae9d2415ff/width=1800/0dea0b57-5e41-47cd-8bcd-c2ae9d2415ff.jpeg"
+                    },
+                    "parameters": {
+                      "civitai": "https://civitai.com/images/7980369"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "refiners",
+                "safetensors",
+                "image-to-image",
+                "stable-diffusion",
+                "sdxl",
+                "art",
+                "en",
+                "arxiv:2402.13929",
+                "base_model:ByteDance/SDXL-Lightning",
+                "base_model:adapter:ByteDance/SDXL-Lightning",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "image-to-image",
+              "library_name": "refiners",
+              "readme": "---\nwidget:\n- text: \"‎\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b9af40da-5147-43d6-b179-e14edc2b0e9b/width=1800/b9af40da-5147-43d6-b179-e14edc2b0e9b.jpeg\n  parameters:\n    civitai: https://civitai.com/images/7980366\n- text: \"‎\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c63367b7-30a1-4f73-8ec0-0678209f8388/width=1800/c63367b7-30a1-4f73-8ec0-0678209f8388.jpeg\n  parameters:\n    civitai: https://civitai.com/images/7980368\n- text: \"‎\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/541bca2c-8fea-4fd1-bea8-a17b2a8ee0ef/width=1800/541bca2c-8fea-4fd1-bea8-a17b2a8ee0ef.jpeg\n  parameters:\n    civitai: https://civitai.com/images/7980367\n- text: \"‎\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/0dea0b57-5e41-47cd-8bcd-c2ae9d2415ff/width=1800/0dea0b57-5e41-47cd-8bcd-c2ae9d2415ff.jpeg\n  parameters:\n    civitai: https://civitai.com/images/7980369\nlicense: openrail++\nbase_model: ByteDance/SDXL-Lightning\nbase_model_relation: adapter\nlanguage:\n- en\nlibrary_name: refiners\npipeline_tag: image-to-image\ntags:\n- image-to-image\n- stable-diffusion\n- sdxl\n- art\n---\n\n# Stable Diffusion XL Lightning\n\n<Gallery />\n\n## Citation\n\n```bibtex\n@misc{lin2024sdxllightning,\n      title={SDXL-Lightning: Progressive Adversarial Diffusion Distillation}, \n      author={Shanchuan Lin and Anran Wang and Xiao Yang},\n      year={2024},\n      eprint={2402.13929},\n      archivePrefix={arXiv},\n      primaryClass={cs.CV}\n}\n```\n",
+              "extracted_code": ""
+            },
+            {
+              "id": "refiners/sdxl.juggernaut.v10.unet",
+              "author": "refiners",
+              "sha": "1d01ddc981fed2607d9718a34e3fc0f5ded085f2",
+              "created_at": "2024-08-23T13:31:57+00:00",
+              "last_modified": "2024-09-20T08:25:25+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 14,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "model.safetensors"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [
+                  "en"
+                ],
+                "library_name": "refiners",
+                "pipeline_tag": "image-to-image",
+                "tags": [
+                  "image-to-image",
+                  "stable-diffusion",
+                  "sdxl",
+                  "art",
+                  "juggernaut"
+                ],
+                "datasets": [],
+                "base_model": "refiners/sdxl.unet",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "beautiful lady, (freckles), big smile, brown hazel eyes, Full Bangs, dark makeup, hyperdetailed photography, soft light, head and shoulders portrait, cover",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/265d6db9-9bb4-40b9-b9f1-4404666effd7/width=1248/265d6db9-9bb4-40b9-b9f1-4404666effd7.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269273"
+                    }
+                  },
+                  {
+                    "text": "photograph, landscape of a Mythical Grotto from inside of a Harare, at Twilight, Depressing, Cloudpunk, Cold Lighting, dynamic, Nikon d850, Depth of field 270mm, Amaro, Golden ratio",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/fb35cf54-66e8-42fd-ad3f-fd05012dcee7/width=1248/fb35cf54-66e8-42fd-ad3f-fd05012dcee7.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269282"
+                    }
+                  },
+                  {
+                    "text": "photograph, a path in the woods with leaves and the sun shining , by Julian Allen, dramatic autumn landscape, ears, park, take off, peace, rich cold moody colours, hi resolution, oaks",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c86d17eb-665d-454c-9066-69eb4f92768d/width=1248/c86d17eb-665d-454c-9066-69eb4f92768d.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269294"
+                    }
+                  },
+                  {
+                    "text": "Cyberpunk, sci-fi, dark-fantasy, kodak portrait 400, 8k, soft light, volumetric lighting, highly detailed, britt marling style 3/4, portrait photo of a war man cyborg robot in a chemical laboratory + face, face is skullbone with scares, intricate, elegant, highly detailed, devil-armor, 2D motifs detailed dark fantasy digital painting, artstation, concept art, smooth, sharp focus, illustration, art by Otomo Katsuhiro and ShirÅ Masamune and Oshii Mamoru. Cosmic light in backfront",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/bc775706-1688-4c63-9869-1940f9257405/width=1248/bc775706-1688-4c63-9869-1940f9257405.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269291"
+                    }
+                  },
+                  {
+                    "text": "moody aesthetic, beautiful cozy, cramped bedroom with floor to ceiling glass windows overlooking a cyberpunk city at night, view from top of skyscraper, white bedsheets, bookshelves, thunderstorm outside with torrential rain, detailed, high resolution, photorrealistic, dark, gloomy,",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a0a41fd4-99ef-4553-9ab2-3fb097fc64eb/width=1248/a0a41fd4-99ef-4553-9ab2-3fb097fc64eb.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269323"
+                    }
+                  },
+                  {
+                    "text": "woman, confused expression, questioning gesture, braided hair, grey turtleneck, blue jeans, mixed ethnicity, portrait, high resolution, white background, indoor, natural lighting, facing camera, genuine emotion, casual wear, hands outstretched, no makeup, young adult, neutral color palette, minimalistic style.",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cfea310e-dfd7-4e70-9dfa-e55b8e78c1ce/width=1248/cfea310e-dfd7-4e70-9dfa-e55b8e78c1ce.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269324"
+                    }
+                  },
+                  {
+                    "text": "African American male, smiling, waving, eyeglasses, casual clothing, sitting at desk, laptop, home office, indoor, daylight, notebook, writing utensil, modern decor, house plants, bookshelf, natural lighting, cheerful expression, smartwatch, comfortable environment, clear focus, medium shot.",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/fd1d164b-59ce-438e-999a-2a401315a3cb/width=1248/fd1d164b-59ce-438e-999a-2a401315a3cb.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269319"
+                    }
+                  },
+                  {
+                    "text": "Spacealien, XF IQ4, 150MP, 50mm, ISO 1000, 1/250s, natural light, Adobe Lightroom, photolab, Affinity Photo, PhotoDirector 365",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f737ada4-2fb1-41d3-b69d-849583223fba/width=1248/f737ada4-2fb1-41d3-b69d-849583223fba.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269318"
+                    }
+                  },
+                  {
+                    "text": "lightbox sign, \"BE MINE\" text, heart symbol, pink roses, pink background, Valentine's Day concept, romantic gesture, floral, vertical composition, high-resolution image, vibrant colors, love message, decorative setup, soft lighting, top view, emotional sentiment, clear typography, modern romance, still life,",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/41ee9047-82ce-460e-bfb9-7cd4618add8e/width=1248/41ee9047-82ce-460e-bfb9-7cd4618add8e.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269325"
+                    }
+                  },
+                  {
+                    "text": "suburban house, dusk, modern architecture, two-story, garage doors, wet driveway, landscaped, front lawn, exterior lighting, clear sky, twilight hues, residential area, paved road, high dynamic range, wide angle, curb appeal, stone accents, window reflections, tranquil scene",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c3046bc1-f9b2-4ef8-8b14-deeb3e81096a/width=1248/c3046bc1-f9b2-4ef8-8b14-deeb3e81096a.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269326"
+                    }
+                  },
+                  {
+                    "text": "(Digital Artwork:1.3) of (Sketched:1.1) octane render of a mysterious dense forest with a large (magical:1.2) gate (portal:1.3) to the eternal kingdom, blade runner, intricate (vine:1.2), massive tree in liquid metal, realistic digital painting portrait, shot at 8k resolution, petrol liquid, pastel color, splash art, blue and purple magic universe, light engrave in intricate details, (light particle:1.2), (game concept:1.3), (depth of field:1.3), global illumination,Highly Detailed,Trending on ArtStation",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7807ee34-99bd-405a-8522-8fbf59a165ee/width=1248/7807ee34-99bd-405a-8522-8fbf59a165ee.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269327"
+                    }
+                  },
+                  {
+                    "text": "Midshot, woman, dusk setting, outdoor, floral dress, black belt, standing, bokeh background, street lights, tree-lined pathway, medium shot, contemplative expression, curly hair, natural makeup, hoop earrings, hand in pocket, warm color tone, blurred background, shallow depth of field, fashionable attire, young adult, dusk lighting",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/28384ff1-d4be-4ca1-b7ad-cc6453a38e1e/width=1248/28384ff1-d4be-4ca1-b7ad-cc6453a38e1e.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269372"
+                    }
+                  },
+                  {
+                    "text": "Full Body, woman, standing in road, long hair, hoop earrings, makeup, white crop top, high-waisted jeans, white sneakers, centerline, rural road, cloudy sky, daylight, confident pose, direct gaze, casual fashion, full length, outdoors, natural light, greenery, young adult, serene.",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/630d8dd4-d563-40f7-99f0-26e535dd4567/width=1248/630d8dd4-d563-40f7-99f0-26e535dd4567.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269374"
+                    }
+                  },
+                  {
+                    "text": "ballet dancer, female, white tutu, ballet pose, dance, elegance, indoor, natural light, leotard, ballet shoes, gracefulness, young adult, serene expression, closed eyes, white room, sunlight, caucasian, standing, artistic, performance attire, solo performer",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/35aea9e7-38a2-4b3d-8c62-94a604c6aa17/width=1248/35aea9e7-38a2-4b3d-8c62-94a604c6aa17.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269371"
+                    }
+                  },
+                  {
+                    "text": "photograph close up portrait of Female boxer training, serious, stoic cinematic 4k epic detailed 4k epic detailed photograph shot on kodak detailed bokeh cinematic hbo dark moody",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/163c5c8c-4f34-46eb-bef2-c9af43abbd33/width=1248/163c5c8c-4f34-46eb-bef2-c9af43abbd33.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "bad eyes, cgi, airbrushed, plastic, deformed, watermark",
+                      "civitai": "https://civitai.com/images/10269381"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "refiners",
+                "safetensors",
+                "image-to-image",
+                "stable-diffusion",
+                "sdxl",
+                "art",
+                "juggernaut",
+                "en",
+                "base_model:refiners/sdxl.unet",
+                "base_model:finetune:refiners/sdxl.unet",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "image-to-image",
+              "library_name": "refiners",
+              "readme": "---\nwidget:\n- text: beautiful lady, (freckles), big smile, brown hazel eyes, Full Bangs, dark makeup, hyperdetailed photography, soft light, head and shoulders portrait, cover\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/265d6db9-9bb4-40b9-b9f1-4404666effd7/width=1248/265d6db9-9bb4-40b9-b9f1-4404666effd7.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269273\n- text: photograph, landscape of a Mythical Grotto from inside of a Harare, at Twilight, Depressing, Cloudpunk, Cold Lighting, dynamic, Nikon d850, Depth of field 270mm, Amaro, Golden ratio\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/fb35cf54-66e8-42fd-ad3f-fd05012dcee7/width=1248/fb35cf54-66e8-42fd-ad3f-fd05012dcee7.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269282\n- text: photograph, a path in the woods with leaves and the sun shining , by Julian Allen, dramatic autumn landscape, ears, park, take off, peace, rich cold moody colours, hi resolution, oaks\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c86d17eb-665d-454c-9066-69eb4f92768d/width=1248/c86d17eb-665d-454c-9066-69eb4f92768d.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269294\n- text: Cyberpunk, sci-fi, dark-fantasy, kodak portrait 400, 8k, soft light, volumetric lighting, highly detailed, britt marling style 3/4, portrait photo of a war man cyborg robot in a chemical laboratory + face, face is skullbone with scares, intricate, elegant, highly detailed, devil-armor, 2D motifs detailed dark fantasy digital painting, artstation, concept art, smooth, sharp focus, illustration, art by Otomo Katsuhiro and ShirÅ Masamune and Oshii Mamoru. Cosmic light in backfront\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/bc775706-1688-4c63-9869-1940f9257405/width=1248/bc775706-1688-4c63-9869-1940f9257405.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269291\n- text: moody aesthetic, beautiful cozy, cramped bedroom with floor to ceiling glass windows overlooking a cyberpunk city at night, view from top of skyscraper, white bedsheets, bookshelves, thunderstorm outside with torrential rain, detailed, high resolution, photorrealistic, dark, gloomy,\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a0a41fd4-99ef-4553-9ab2-3fb097fc64eb/width=1248/a0a41fd4-99ef-4553-9ab2-3fb097fc64eb.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269323\n- text: woman, confused expression, questioning gesture, braided hair, grey turtleneck, blue jeans, mixed ethnicity, portrait, high resolution, white background, indoor, natural lighting, facing camera, genuine emotion, casual wear, hands outstretched, no makeup, young adult, neutral color palette, minimalistic style.\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cfea310e-dfd7-4e70-9dfa-e55b8e78c1ce/width=1248/cfea310e-dfd7-4e70-9dfa-e55b8e78c1ce.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269324\n- text: African American male, smiling, waving, eyeglasses, casual clothing, sitting at desk, laptop, home office, indoor, daylight, notebook, writing utensil, modern decor, house plants, bookshelf, natural lighting, cheerful expression, smartwatch, comfortable environment, clear focus, medium shot.\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/fd1d164b-59ce-438e-999a-2a401315a3cb/width=1248/fd1d164b-59ce-438e-999a-2a401315a3cb.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269319\n- text: Spacealien, XF IQ4, 150MP, 50mm, ISO 1000, 1/250s, natural light, Adobe Lightroom, photolab, Affinity Photo, PhotoDirector 365\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f737ada4-2fb1-41d3-b69d-849583223fba/width=1248/f737ada4-2fb1-41d3-b69d-849583223fba.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269318\n- text: lightbox sign, \"BE MINE\" text, heart symbol, pink roses, pink background, Valentine's Day concept, romantic gesture, floral, vertical composition, high-resolution image, vibrant colors, love message, decorative setup, soft lighting, top view, emotional sentiment, clear typography, modern romance, still life,\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/41ee9047-82ce-460e-bfb9-7cd4618add8e/width=1248/41ee9047-82ce-460e-bfb9-7cd4618add8e.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269325\n- text: suburban house, dusk, modern architecture, two-story, garage doors, wet driveway, landscaped, front lawn, exterior lighting, clear sky, twilight hues, residential area, paved road, high dynamic range, wide angle, curb appeal, stone accents, window reflections, tranquil scene\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c3046bc1-f9b2-4ef8-8b14-deeb3e81096a/width=1248/c3046bc1-f9b2-4ef8-8b14-deeb3e81096a.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269326\n- text: (Digital Artwork:1.3) of (Sketched:1.1) octane render of a mysterious dense forest with a large (magical:1.2) gate (portal:1.3) to the eternal kingdom, blade runner, intricate (vine:1.2), massive tree in liquid metal, realistic digital painting portrait, shot at 8k resolution, petrol liquid, pastel color, splash art, blue and purple magic universe, light engrave in intricate details, (light particle:1.2), (game concept:1.3), (depth of field:1.3), global illumination,Highly Detailed,Trending on ArtStation\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7807ee34-99bd-405a-8522-8fbf59a165ee/width=1248/7807ee34-99bd-405a-8522-8fbf59a165ee.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269327\n- text: Midshot, woman, dusk setting, outdoor, floral dress, black belt, standing, bokeh background, street lights, tree-lined pathway, medium shot, contemplative expression, curly hair, natural makeup, hoop earrings, hand in pocket, warm color tone, blurred background, shallow depth of field, fashionable attire, young adult, dusk lighting\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/28384ff1-d4be-4ca1-b7ad-cc6453a38e1e/width=1248/28384ff1-d4be-4ca1-b7ad-cc6453a38e1e.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269372\n- text: Full Body, woman, standing in road, long hair, hoop earrings, makeup, white crop top, high-waisted jeans, white sneakers, centerline, rural road, cloudy sky, daylight, confident pose, direct gaze, casual fashion, full length, outdoors, natural light, greenery, young adult, serene.\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/630d8dd4-d563-40f7-99f0-26e535dd4567/width=1248/630d8dd4-d563-40f7-99f0-26e535dd4567.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269374\n- text: ballet dancer, female, white tutu, ballet pose, dance, elegance, indoor, natural light, leotard, ballet shoes, gracefulness, young adult, serene expression, closed eyes, white room, sunlight, caucasian, standing, artistic, performance attire, solo performer\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/35aea9e7-38a2-4b3d-8c62-94a604c6aa17/width=1248/35aea9e7-38a2-4b3d-8c62-94a604c6aa17.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269371\n- text: photograph close up portrait of Female boxer training, serious, stoic cinematic 4k epic detailed 4k epic detailed photograph shot on kodak detailed bokeh cinematic hbo dark moody\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/163c5c8c-4f34-46eb-bef2-c9af43abbd33/width=1248/163c5c8c-4f34-46eb-bef2-c9af43abbd33.jpeg\n  parameters:\n    negative_prompt: bad eyes, cgi, airbrushed, plastic, deformed, watermark\n    civitai: https://civitai.com/images/10269381\nlicense: openrail++\nbase_model: refiners/sdxl.unet\nbase_model_relation: finetune\nlanguage:\n- en\nlibrary_name: refiners\npipeline_tag: image-to-image\ntags:\n- image-to-image\n- stable-diffusion\n- sdxl\n- art\n- juggernaut\n---\n\n# Juggernaut XL v10\n\n<Gallery />\n\n## Model Details\n\n- **Homepage**: <https://civitai.com/models/133005?modelVersionId=456194>\n- **Creator**: <https://civitai.com/user/KandooAI>\n",
+              "extracted_code": "from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel, AutoencoderKL\nfrom diffusers.utils import load_image\nimport torch\n\n# Load the control network\ncontrolnet = ControlNetModel.from_pretrained(\n    \"guoyongye/controlnet-canny-sdxl-1.0\", torch_dtype=torch.float16\n)\n\n# Load the pipeline\npipeline = StableDiffusionXLControlNetPipeline.from_pretrained(\n    \"stabilityai/stable-diffusion-xl-base-1.0\", controlnet=controlnet, torch_dtype=torch.float16\n)\n\n# Load a refiner (optional)\n# pipeline.register_modules(\n#     refiner=AutoencoderKL.from_pretrained(\n#         \"stabilityai/stable-diffusion-xl-refiner-1.0\", torch_dtype=torch.float16\n#     )\n# )\n\n# Move pipeline to GPU\npipeline.to(\"cuda\")\n\n# Load the input image\nimage = load_image(\n    \"https://huggingface.co/datasets/diffusers/docs-images/resolve/main/controlnet/image2image/canny_input.png\"\n)\n\n# Generate edges using Canny edge detection\n# This step would typically be done beforehand, or using a library like OpenCV\n# For demonstration, we assume you have the edge image ready\n# For example:\n# import cv2\n# image = cv2.Canny(np.array(image), 100, 200)\n# image = image[:, :, None]\n# image = np.concatenate([image, image, image], axis=2)\n# image = Image.fromarray(image.squeeze())\n\n# Generate the image\n# output = pipeline(\n#     prompt=\n#     \"a beautiful painting of a computer, in the style of van gogh\",\n#     image=image,  # Pass the Canny edge image\n#     num_inference_steps=30,\n#     generator=torch.Generator(\"cuda\").manual_seed(0),\n# ).images[0]\n\n# If you have a refiner loaded:\n# output = pipeline(\n#     prompt=\n#     \"a beautiful painting of a computer, in the style of van gogh\",\n#     image=image,\n#     num_inference_steps=30,\n#     output_type=\"latent\",\n#     generator=torch.Generator(\"cuda\").manual_seed(0),\n# ).images[0]\n#\n# refiner_output = pipeline.refiner(\n#     prompt=\"\",  # No prompt needed for refiner\n#     image=output,\n#     num_inference_steps=30,\n#     generator=torch.Generator(\"cuda\").manual_seed(0),\n# ).images[0]\n\n# output.save(\"output.png\")\n"
+            },
+            {
+              "id": "refiners/sdxl.lightning.4step.unet",
+              "author": "refiners",
+              "sha": "0d20436ee845ae918f97493693cf2ec49cd851d2",
+              "created_at": "2024-10-08T21:00:30+00:00",
+              "last_modified": "2024-10-11T14:34:56+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 9,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "model.safetensors"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [
+                  "en"
+                ],
+                "library_name": "refiners",
+                "pipeline_tag": "image-to-image",
+                "tags": [
+                  "image-to-image",
+                  "stable-diffusion",
+                  "sdxl",
+                  "art"
+                ],
+                "datasets": [],
+                "base_model": "ByteDance/SDXL-Lightning",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "‎",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b9af40da-5147-43d6-b179-e14edc2b0e9b/width=1800/b9af40da-5147-43d6-b179-e14edc2b0e9b.jpeg"
+                    },
+                    "parameters": {
+                      "civitai": "https://civitai.com/images/7980366"
+                    }
+                  },
+                  {
+                    "text": "‎",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c63367b7-30a1-4f73-8ec0-0678209f8388/width=1800/c63367b7-30a1-4f73-8ec0-0678209f8388.jpeg"
+                    },
+                    "parameters": {
+                      "civitai": "https://civitai.com/images/7980368"
+                    }
+                  },
+                  {
+                    "text": "‎",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/541bca2c-8fea-4fd1-bea8-a17b2a8ee0ef/width=1800/541bca2c-8fea-4fd1-bea8-a17b2a8ee0ef.jpeg"
+                    },
+                    "parameters": {
+                      "civitai": "https://civitai.com/images/7980367"
+                    }
+                  },
+                  {
+                    "text": "‎",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/0dea0b57-5e41-47cd-8bcd-c2ae9d2415ff/width=1800/0dea0b57-5e41-47cd-8bcd-c2ae9d2415ff.jpeg"
+                    },
+                    "parameters": {
+                      "civitai": "https://civitai.com/images/7980369"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "refiners",
+                "safetensors",
+                "image-to-image",
+                "stable-diffusion",
+                "sdxl",
+                "art",
+                "en",
+                "arxiv:2402.13929",
+                "base_model:ByteDance/SDXL-Lightning",
+                "base_model:adapter:ByteDance/SDXL-Lightning",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "image-to-image",
+              "library_name": "refiners",
+              "readme": "---\nwidget:\n- text: \"‎\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b9af40da-5147-43d6-b179-e14edc2b0e9b/width=1800/b9af40da-5147-43d6-b179-e14edc2b0e9b.jpeg\n  parameters:\n    civitai: https://civitai.com/images/7980366\n- text: \"‎\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c63367b7-30a1-4f73-8ec0-0678209f8388/width=1800/c63367b7-30a1-4f73-8ec0-0678209f8388.jpeg\n  parameters:\n    civitai: https://civitai.com/images/7980368\n- text: \"‎\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/541bca2c-8fea-4fd1-bea8-a17b2a8ee0ef/width=1800/541bca2c-8fea-4fd1-bea8-a17b2a8ee0ef.jpeg\n  parameters:\n    civitai: https://civitai.com/images/7980367\n- text: \"‎\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/0dea0b57-5e41-47cd-8bcd-c2ae9d2415ff/width=1800/0dea0b57-5e41-47cd-8bcd-c2ae9d2415ff.jpeg\n  parameters:\n    civitai: https://civitai.com/images/7980369\nlicense: openrail++\nbase_model: ByteDance/SDXL-Lightning\nbase_model_relation: adapter\nlanguage:\n- en\nlibrary_name: refiners\npipeline_tag: image-to-image\ntags:\n- image-to-image\n- stable-diffusion\n- sdxl\n- art\n---\n\n# Stable Diffusion XL Lightning\n\n<Gallery />\n\n## Citation\n\n```bibtex\n@misc{lin2024sdxllightning,\n      title={SDXL-Lightning: Progressive Adversarial Diffusion Distillation}, \n      author={Shanchuan Lin and Anran Wang and Xiao Yang},\n      year={2024},\n      eprint={2402.13929},\n      archivePrefix={arXiv},\n      primaryClass={cs.CV}\n}\n```\n",
+              "extracted_code": ""
+            },
+            {
+              "id": "refiners/sdxl.lcm.unet",
+              "author": "refiners",
+              "sha": "150e113b8bd064ccf67c6a6851258305d3f0bd01",
+              "created_at": "2024-10-08T20:57:22+00:00",
+              "last_modified": "2024-10-20T22:03:19+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 6,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "model.safetensors"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [
+                  "en"
+                ],
+                "library_name": "refiners",
+                "pipeline_tag": "image-to-image",
+                "tags": [
+                  "image-to-image",
+                  "stable-diffusion",
+                  "sdxl",
+                  "art"
+                ],
+                "datasets": [],
+                "base_model": "latent-consistency/lcm-sdxl",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "beautiful scenery nature glass bottle landscape, purple galaxy bottle",
+                    "output": {
+                      "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/4bbe5dba-a55a-4f53-b045-8c2230365651/4bbe5dba-a55a-4f53-b045-8c2230365651.jpeg"
+                    },
+                    "parameters": {
+                      "negative_prompt": "text, watermark",
+                      "civitai": "https://civitai.com/images/9026063"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "refiners",
+                "safetensors",
+                "image-to-image",
+                "stable-diffusion",
+                "sdxl",
+                "art",
+                "en",
+                "arxiv:2310.04378",
+                "base_model:latent-consistency/lcm-sdxl",
+                "base_model:adapter:latent-consistency/lcm-sdxl",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "image-to-image",
+              "library_name": "refiners",
+              "readme": "---\nwidget:\n- text: \"beautiful scenery nature glass bottle landscape, purple galaxy bottle\"\n  output:\n    url: https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/4bbe5dba-a55a-4f53-b045-8c2230365651/4bbe5dba-a55a-4f53-b045-8c2230365651.jpeg\n  parameters:\n    negative_prompt: \"text, watermark\"\n    civitai: https://civitai.com/images/9026063\nlicense: openrail++\nbase_model: latent-consistency/lcm-sdxl\nbase_model_relation: adapter\nlanguage:\n- en\nlibrary_name: refiners\npipeline_tag: image-to-image\ntags:\n- image-to-image\n- stable-diffusion\n- sdxl\n- art\n---\n\n# Stable Diffusion XL LCM\n\n<Gallery />\n\n## Citation\n\n```bibtex\n@misc{luo2023latentconsistencymodelssynthesizing,\n  title         = {Latent Consistency Models: Synthesizing High-Resolution Images with Few-Step Inference},\n  author        = {Simian Luo and Yiqin Tan and Longbo Huang and Jian Li and Hang Zhao},\n  year          = {2023},\n  eprint        = {2310.04378},\n  archiveprefix = {arXiv},\n  primaryclass  = {cs.CV},\n  url           = {https://arxiv.org/abs/2310.04378}\n}\n```\n",
+              "extracted_code": ""
+            },
+            {
+              "id": "AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora",
+              "author": "AdamLucek",
+              "sha": "9ecc684be03ea167e2454f5573e8ff2dd900f737",
+              "created_at": "2024-06-25T07:38:05+00:00",
+              "last_modified": "2024-06-30T19:20:09+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 52,
+              "likes": 2,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "checkpoint-500/optimizer.bin"
+                },
+                {
+                  "rfilename": "checkpoint-500/pytorch_lora_weights.safetensors"
+                },
+                {
+                  "rfilename": "checkpoint-500/random_states_0.pkl"
+                },
+                {
+                  "rfilename": "checkpoint-500/scheduler.bin"
+                },
+                {
+                  "rfilename": "image_0.png"
+                },
+                {
+                  "rfilename": "image_1.png"
+                },
+                {
+                  "rfilename": "image_2.png"
+                },
+                {
+                  "rfilename": "image_3.png"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [],
+                "library_name": "diffusers",
+                "tags": [
+                  "text-to-image",
+                  "text-to-image",
+                  "diffusers-training",
+                  "diffusers",
+                  "lora",
+                  "template:sd-lora",
+                  "stable-diffusion-xl",
+                  "stable-diffusion-xl-diffusers"
+                ],
+                "datasets": [
+                  "AdamLucek/green-chair"
+                ],
+                "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "A photo of sks chair in an apartment",
+                    "output": {
+                      "url": "https://huggingface.co/AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora/resolve/main/image_0.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of sks chair in an apartment",
+                    "output": {
+                      "url": "https://huggingface.co/AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora/resolve/main/image_1.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of sks chair in an apartment",
+                    "output": {
+                      "url": "https://huggingface.co/AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora/resolve/main/image_2.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of sks chair in an apartment",
+                    "output": {
+                      "url": "https://huggingface.co/AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora/resolve/main/image_3.png"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "diffusers",
+                "tensorboard",
+                "text-to-image",
+                "diffusers-training",
+                "lora",
+                "template:sd-lora",
+                "stable-diffusion-xl",
+                "stable-diffusion-xl-diffusers",
+                "dataset:AdamLucek/green-chair",
+                "base_model:stabilityai/stable-diffusion-xl-base-1.0",
+                "base_model:adapter:stabilityai/stable-diffusion-xl-base-1.0",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "text-to-image",
+              "library_name": "diffusers",
+              "readme": "---\nbase_model: stabilityai/stable-diffusion-xl-base-1.0\nlibrary_name: diffusers\nlicense: openrail++\ntags:\n- text-to-image\n- text-to-image\n- diffusers-training\n- diffusers\n- lora\n- template:sd-lora\n- stable-diffusion-xl\n- stable-diffusion-xl-diffusers\ninstance_prompt: a photo of sks chair\nwidget:\n- text: A photo of sks chair in an apartment\n  output:\n    url: image_0.png\n- text: A photo of sks chair in an apartment\n  output:\n    url: image_1.png\n- text: A photo of sks chair in an apartment\n  output:\n    url: image_2.png\n- text: A photo of sks chair in an apartment\n  output:\n    url: image_3.png\ndatasets:\n- AdamLucek/green-chair\n---\n\n# SDXL LoRA DreamBooth - AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora\n\n## Model description\n\nThese are LoRA DreamBooth weights for [stabilityai/stable-diffusion-xl-base-1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0).\n\nThe weights were trained using [DreamBooth](https://dreambooth.github.io/) on the [AdamLucek/green-chair](https://huggingface.co/datasets/AdamLucek/green-chair) Dataset.\n\nLoRA for the text encoder was enabled: **True**.\n\nSpecial VAE used for training: [madebyollin/sdxl-vae-fp16-fix](https://huggingface.co/madebyollin/sdxl-vae-fp16-fix).\n\n## Trigger words\n\nYou should use **a photo of sks chair** to trigger the image generation.\n\n## Example Generations\n\n**Reference Image**\n<img src=\"https://cdn-uploads.huggingface.co/production/uploads/65ba68a15d2ef0a4b2c892b4/hvvyMxmnXK36wAEoEPCn2.jpeg\" width=\"350\">\n**Generated Images**\n<img src=\"https://cdn-uploads.huggingface.co/production/uploads/65ba68a15d2ef0a4b2c892b4/tTVfzzi4H09-H8w4dAyA3.jpeg\" width=\"500\">\n*on a street in new york*, *in a desert*, *in a jungle*, *in the color blue*\n## Download model\n\nWeights for this model are available in Safetensors format.\n\n## Intended uses & limitations\n\n<div style=\"display: flex; align-items: center;\">\n  <img src=\"https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg\" width=\"100\">\n  <a href=\"https://colab.research.google.com/drive/1v503hMrThIy87xozZBMPSDBc53Bukk_1?usp=sharing\" style=\"margin-left: 10px;\">COLAB Notebook Here</a>\n</div>\n\n#### How to use\n\n```python\n# Load Stable Diffusion XL Base 1.0\npipe = DiffusionPipeline.from_pretrained(\n    \"stabilityai/stable-diffusion-xl-base-1.0\", \n    torch_dtype=torch.float16,\n    variant=\"fp16\", \n    use_safetensors=True\n).to(\"cuda\")\n\n# Optional, enable cpu offloading\npipe.enable_model_cpu_offload()\n\n# Load LoRA Weights\npipe.load_lora_weights(\"AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora\")\n\n# Generate an Image\nimage = pipe(\n    prompt = \"a photo of sks chair\",\n    num_inference_steps=50,\n    height=1024,\n    width=1024,\n).images[0]\n\n# Save the Image\nimage.save(\"green_chair.png\")\n```\n\n#### Limitations and bias\n\n**Note**: Limited tuning of hyperparameters\n\n**Note**: See original Stable Diffusion XL Base 1.0 page for additional limitations and biases\n\n## Training details\n\n**Video Overview**\n<a href=\"https://youtu.be/v89kB4OScOA\">\n  <img src=\"https://i.imgur.com/fW6hHu2.png\" width=\"350\">\n</a>\n\nTrained using [Dreambooth](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_sdxl.md) via [Diffusers](https://huggingface.co/docs/diffusers/main/en/index) on a single A100\n\nTraining Script:\n```\naccelerate launch train_dreambooth_lora_sdxl.py \\\n  --pretrained_model_name_or_path=\"stabilityai/stable-diffusion-xl-base-1.0\"  \\\n  --dataset_name=\"AdamLucek/green-chair\" \\\n  --pretrained_vae_model_name_or_path=\"madebyollin/sdxl-vae-fp16-fix\" \\\n  --output_dir=\"lora-trained-xl\" \\\n  --train_text_encoder \\\n  --instance_prompt=\"a photo of sks chair\" \\\n  --resolution=1024 \\\n  --train_batch_size=1 \\\n  --gradient_accumulation_steps=4 \\\n  --learning_rate=1e-4 \\\n  --lr_scheduler=\"constant\" \\\n  --lr_warmup_steps=0 \\\n  --max_train_steps=500 \\\n  --validation_prompt=\"A photo of sks chair in an apartment\" \\\n  --validation_epochs=25 \\\n  --seed=\"0\" \\\n  --hub_model_id=\"sdxl-base-1.0-greenchair-dreambooth-lora\" \\\n  --push_to_hub\n```",
+              "extracted_code": "# Load Stable Diffusion XL Base 1.0\npipe = DiffusionPipeline.from_pretrained(\n    \"stabilityai/stable-diffusion-xl-base-1.0\", \n    torch_dtype=torch.float16,\n    variant=\"fp16\", \n    use_safetensors=True\n).to(\"cuda\")\n\n# Optional, enable cpu offloading\npipe.enable_model_cpu_offload()\n\n# Load LoRA Weights\npipe.load_lora_weights(\"AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora\")\n\n# Generate an Image\nimage = pipe(\n    prompt = \"a photo of sks chair\",\n    num_inference_steps=50,\n    height=1024,\n    width=1024,\n).images[0]\n\n# Save the Image\nimage.save(\"green_chair.png\")"
+            },
+            {
+              "id": "Norod78/sdxl-PaperCutouts-Dreambooth",
+              "author": "Norod78",
+              "sha": "4f79a0272997fe88d615b2a59ca1735a2c1f5019",
+              "created_at": "2023-11-17T21:08:13+00:00",
+              "last_modified": "2023-11-21T07:34:58+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 17,
+              "likes": 36,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "images/prompt.txt"
+                },
+                {
+                  "rfilename": "images/sdxl-PaperCutouts-Dreambooh_20231117225404_e000005_00_7777.png"
+                },
+                {
+                  "rfilename": "images/sdxl-PaperCutouts-Dreambooh_20231117225414_e000005_01_7777.png"
+                },
+                {
+                  "rfilename": "images/sdxl-PaperCutouts-Dreambooh_20231117225424_e000005_02.png"
+                },
+                {
+                  "rfilename": "images/sdxl-PaperCutouts-Dreambooh_20231117225435_e000005_03_7777.png"
+                },
+                {
+                  "rfilename": "images/sdxl-PaperCutouts-Dreambooh_20231117225450_e000005_04_7777.png"
+                },
+                {
+                  "rfilename": "images/sdxl-PaperCutouts-Dreambooh_20231117225501_e000005_05_7777.png"
+                },
+                {
+                  "rfilename": "sdxl-PaperCutouts-Dreambooth.safetensors"
+                }
+              ],
+              "card_data": {
+                "license": "mit",
+                "language": [],
+                "tags": [
+                  "text-to-image",
+                  "stable-diffusion",
+                  "lora",
+                  "diffusers",
+                  "template:sd-lora"
+                ],
+                "datasets": [
+                  "Norod78/PaperCutoutStyle"
+                ],
+                "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "A dog  in the PaperCutout style",
+                    "parameters": {
+                      "negative_prompt": "blurry, grainy, unfocused, nsfw, nude, naked"
+                    },
+                    "output": {
+                      "url": "https://huggingface.co/Norod78/sdxl-PaperCutouts-Dreambooth/resolve/main/images/sdxl-PaperCutouts-Dreambooh_20231117225414_e000005_01_7777.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of Gal Gadot as wonderwoman PaperCutout style",
+                    "parameters": {
+                      "negative_prompt": "blurry, grainy, unfocused, nsfw, nude, naked"
+                    },
+                    "output": {
+                      "url": "https://huggingface.co/Norod78/sdxl-PaperCutouts-Dreambooth/resolve/main/images/sdxl-PaperCutouts-Dreambooh_20231117225404_e000005_00_7777.png"
+                    }
+                  },
+                  {
+                    "text": "The girl with a pearl earring  PaperCutout style",
+                    "parameters": {
+                      "negative_prompt": "blurry, grainy, unfocused"
+                    },
+                    "output": {
+                      "url": "https://huggingface.co/Norod78/sdxl-PaperCutouts-Dreambooth/resolve/main/images/sdxl-PaperCutouts-Dreambooh_20231117225424_e000005_02.png"
+                    }
+                  },
+                  {
+                    "text": "A crazy clown  PaperCutout style",
+                    "parameters": {
+                      "negative_prompt": "blurry, grainy, unfocused"
+                    },
+                    "output": {
+                      "url": "https://huggingface.co/Norod78/sdxl-PaperCutouts-Dreambooth/resolve/main/images/sdxl-PaperCutouts-Dreambooh_20231117225435_e000005_03_7777.png"
+                    }
+                  },
+                  {
+                    "text": "Elsa from frozen, Disney style  PaperCutout style",
+                    "parameters": {
+                      "negative_prompt": "blurry, grainy, unfocused"
+                    },
+                    "output": {
+                      "url": "https://huggingface.co/Norod78/sdxl-PaperCutouts-Dreambooth/resolve/main/images/sdxl-PaperCutouts-Dreambooh_20231117225450_e000005_04_7777.png"
+                    }
+                  },
+                  {
+                    "text": "Elsa from frozen, Disney style  PaperCutout style",
+                    "parameters": {
+                      "negative_prompt": "blurry, grainy, unfocused"
+                    },
+                    "output": {
+                      "url": "https://huggingface.co/Norod78/sdxl-PaperCutouts-Dreambooth/resolve/main/images/sdxl-PaperCutouts-Dreambooh_20231117225501_e000005_05_7777.png"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "diffusers",
+                "text-to-image",
+                "stable-diffusion",
+                "lora",
+                "template:sd-lora",
+                "dataset:Norod78/PaperCutoutStyle",
+                "base_model:stabilityai/stable-diffusion-xl-base-1.0",
+                "base_model:adapter:stabilityai/stable-diffusion-xl-base-1.0",
+                "license:mit",
+                "region:us"
+              ],
+              "pipeline_tag": "text-to-image",
+              "library_name": "diffusers",
+              "readme": "---\ntags:\n- text-to-image\n- stable-diffusion\n- lora\n- diffusers\n- template:sd-lora\nwidget:\n- text: A dog  in the PaperCutout style\n  parameters:\n    negative_prompt: blurry, grainy, unfocused, nsfw, nude, naked\n  output:\n    url: images/sdxl-PaperCutouts-Dreambooh_20231117225414_e000005_01_7777.png\n- text: A photo of Gal Gadot as wonderwoman PaperCutout style\n  parameters:\n    negative_prompt: blurry, grainy, unfocused, nsfw, nude, naked\n  output:\n    url: images/sdxl-PaperCutouts-Dreambooh_20231117225404_e000005_00_7777.png\n- text: The girl with a pearl earring  PaperCutout style\n  parameters:\n    negative_prompt: blurry, grainy, unfocused\n  output:\n    url: images/sdxl-PaperCutouts-Dreambooh_20231117225424_e000005_02.png\n- text: A crazy clown  PaperCutout style\n  parameters:\n    negative_prompt: blurry, grainy, unfocused\n  output:\n    url: images/sdxl-PaperCutouts-Dreambooh_20231117225435_e000005_03_7777.png\n- text: Elsa from frozen, Disney style  PaperCutout style\n  parameters:\n    negative_prompt: blurry, grainy, unfocused\n  output:\n    url: images/sdxl-PaperCutouts-Dreambooh_20231117225450_e000005_04_7777.png\n- text: Elsa from frozen, Disney style  PaperCutout style\n  parameters:\n    negative_prompt: blurry, grainy, unfocused\n  output:\n    url: images/sdxl-PaperCutouts-Dreambooh_20231117225501_e000005_05_7777.png\nbase_model: stabilityai/stable-diffusion-xl-base-1.0\ninstance_prompt: PaperCutout style\nlicense: mit\ndatasets:\n- Norod78/PaperCutoutStyle\n---\n# Paper Cutout style (SDXL Dreambooth LoRA)\n\n<Gallery />\n\n## Model description \n\nJust experimenting with Dreambooth LoRA training. \nDataset was only 14 images generated with MidJourney.\nTrigger phrase is &quot;PaperCutout style&quot;\n\n## Trigger words\n\nYou should use `PaperCutout style` to trigger the image generation.\n\n## Dataset\n\nDataset images were generated with Midjourney and are [available here](https://huggingface.co/datasets/Norod78/PaperCutoutStyle)\n\n## Training config\n\nUsed [kohya_ss](https://github.com/bmaltais/kohya_ss) with [this config](https://gist.github.com/Norod/3a492e2636b8ceb85563bf0e7bc7548b)\n\n## Download model\n\nWeights for this model are available in Safetensors format.\n\n[Download](/Norod78/sdxl-PaperCutouts-Dreambooth/tree/main) them in the Files & versions tab.",
+              "extracted_code": "from diffusers import StableDiffusionXLPipeline\nimport torch\n\npipeline = StableDiffusionXLPipeline.from_pretrained(\"stabilityai/stable-diffusion-xl-base-1.0\", torch_dtype=torch.float16, variant=\"fp16\", use_safetensors=True)\npipeline.to(\"cuda\")\n\n# You can add any LoRA with `pipe.load_lora_weights()`\n\nprompt = \"a photo of sks dog in a paper cutout style\"\nimage = pipeline(prompt=prompt).images[0]\nimage.save(\"dog_papercutout.png\")"
+            },
+            {
+              "id": "adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora",
+              "author": "adhisetiawan",
+              "sha": "936b20c2b2ad83f4c031695e96552d71dee16430",
+              "created_at": "2024-10-27T08:34:36+00:00",
+              "last_modified": "2024-10-29T05:05:20+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 16,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "checkpoint-500/optimizer.bin"
+                },
+                {
+                  "rfilename": "checkpoint-500/pytorch_lora_weights.safetensors"
+                },
+                {
+                  "rfilename": "checkpoint-500/random_states_0.pkl"
+                },
+                {
+                  "rfilename": "checkpoint-500/scheduler.bin"
+                },
+                {
+                  "rfilename": "image_0.png"
+                },
+                {
+                  "rfilename": "image_1.png"
+                },
+                {
+                  "rfilename": "image_2.png"
+                },
+                {
+                  "rfilename": "image_3.png"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [],
+                "library_name": "diffusers",
+                "tags": [
+                  "text-to-image",
+                  "text-to-image",
+                  "diffusers-training",
+                  "diffusers",
+                  "lora",
+                  "template:sd-lora",
+                  "stable-diffusion-xl",
+                  "stable-diffusion-xl-diffusers"
+                ],
+                "datasets": [],
+                "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "A photo of bakso in a bowl",
+                    "output": {
+                      "url": "https://huggingface.co/adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora/resolve/main/image_0.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of bakso in a bowl",
+                    "output": {
+                      "url": "https://huggingface.co/adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora/resolve/main/image_1.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of bakso in a bowl",
+                    "output": {
+                      "url": "https://huggingface.co/adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora/resolve/main/image_2.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of bakso in a bowl",
+                    "output": {
+                      "url": "https://huggingface.co/adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora/resolve/main/image_3.png"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "diffusers",
+                "text-to-image",
+                "diffusers-training",
+                "lora",
+                "template:sd-lora",
+                "stable-diffusion-xl",
+                "stable-diffusion-xl-diffusers",
+                "base_model:stabilityai/stable-diffusion-xl-base-1.0",
+                "base_model:adapter:stabilityai/stable-diffusion-xl-base-1.0",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "text-to-image",
+              "library_name": "diffusers",
+              "readme": "---\nbase_model: stabilityai/stable-diffusion-xl-base-1.0\nlibrary_name: diffusers\nlicense: openrail++\ninstance_prompt: a photo of bakso\nwidget:\n- text: A photo of bakso in a bowl\n  output:\n    url: image_0.png\n- text: A photo of bakso in a bowl\n  output:\n    url: image_1.png\n- text: A photo of bakso in a bowl\n  output:\n    url: image_2.png\n- text: A photo of bakso in a bowl\n  output:\n    url: image_3.png\ntags:\n- text-to-image\n- text-to-image\n- diffusers-training\n- diffusers\n- lora\n- template:sd-lora\n- stable-diffusion-xl\n- stable-diffusion-xl-diffusers\n---\n\n<!-- This model card has been generated automatically according to the information the training script had access to. You\nshould probably proofread and complete it, then remove this comment. -->\n\n\n# SDXL LoRA DreamBooth - adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora\n\n<Gallery />\n\n## Model description\n\nThese are adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora LoRA adaption weights for stabilityai/stable-diffusion-xl-base-1.0.\n\nThe weights were trained  using [DreamBooth](https://dreambooth.github.io/).\n\nLoRA for the text encoder was enabled: True.\n\nSpecial VAE used for training: madebyollin/sdxl-vae-fp16-fix.\n\n## Trigger words\n\nYou should use a photo of bakso to trigger the image generation.\n\n## Download model\n\nWeights for this model are available in Safetensors format.\n\n[Download](adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora/tree/main) them in the Files & versions tab.\n\n\n\n## Intended uses & limitations\n\n#### How to use\n\n```python\nimport torch\nfrom diffusers import DiffusionPipeline\n\n# Load Stable Diffusion XL Base1.0\npipeline = DiffusionPipeline.from_pretrained(\n    \"stabilityai/stable-diffusion-xl-base-1.0\",\n    torch_dtype=torch.float16,\n    variant=\"fp16\",\n    use_safetensors=True\n).to(\"cuda\")\n\n# Optional CPU offloading to save some GPU Memory\npipeline.enable_model_cpu_offload()\n\n# Loading Trained DreamBooth LoRA Weights\npipeline.load_lora_weights(\"adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora\")\n\nimages = pipeline(\n            \"a delicous takoyaki in a plate\", num_images_per_prompt=4, guidance_scale=8\n        )\nfor i in range(len(images.images)):\n  display(images.images[i])\n```\n\n#### Limitations and bias\n\n[TODO: provide examples of latent issues and potential remediations]\n\n## Training details\n\n[TODO: describe the data used to train the model]",
+              "extracted_code": "import torch\nfrom diffusers import DiffusionPipeline\n\n# Load Stable Diffusion XL Base1.0\npipeline = DiffusionPipeline.from_pretrained(\n    \"stabilityai/stable-diffusion-xl-base-1.0\",\n    torch_dtype=torch.float16,\n    variant=\"fp16\",\n    use_safetensors=True\n).to(\"cuda\")\n\n# Optional CPU offloading to save some GPU Memory\npipeline.enable_model_cpu_offload()\n\n# Loading Trained DreamBooth LoRA Weights\npipeline.load_lora_weights(\"adhisetiawan/sdxl-base-1.0-indonesian-food-dreambooth-lora\")\n\nimages = pipeline(\n            \"a delicous takoyaki in a plate\", num_images_per_prompt=4, guidance_scale=8\n        )\nfor i in range(len(images.images)):\n  display(images.images[i])"
+            },
+            {
+              "id": "dminhk/dog-example-sdxl-dreambooth",
+              "author": "dminhk",
+              "sha": "77b8e934e7a91037946205449ebc1371049bd790",
+              "created_at": "2023-08-10T21:23:48+00:00",
+              "last_modified": "2023-08-10T21:52:56+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 10,
+              "likes": 1,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "pytorch_lora_weights.safetensors"
+                },
+                {
+                  "rfilename": "sks-dog-example1.png"
+                },
+                {
+                  "rfilename": "sks-dog-example2.png"
+                },
+                {
+                  "rfilename": "sks-dog-example3.png"
+                },
+                {
+                  "rfilename": "sks-dog-example4.png"
+                }
+              ],
+              "card_data": {
+                "language": [],
+                "tags": [
+                  "text-to-image",
+                  "diffusers",
+                  "autotrain"
+                ],
+                "datasets": [],
+                "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": []
+              },
+              "tags": [
+                "diffusers",
+                "text-to-image",
+                "autotrain",
+                "base_model:stabilityai/stable-diffusion-xl-base-1.0",
+                "base_model:finetune:stabilityai/stable-diffusion-xl-base-1.0",
+                "region:us"
+              ],
+              "pipeline_tag": "text-to-image",
+              "library_name": "diffusers",
+              "readme": "\n---\nbase_model: stabilityai/stable-diffusion-xl-base-1.0\ninstance_prompt: a photo of sks dog\ntags:\n- text-to-image\n- diffusers\n- autotrain\ninference: true\n---\n    \n# DreamBooth trained by AutoTrain\n\nTest enoder was not trained.\n\nData set: https://huggingface.co/datasets/diffusers/dog-example\n\nExample images:\n\n![sks dog example 1](./sks-dog-example1.png)\n![sks dog example 2](./sks-dog-example2.png)\n![sks dog example 3](./sks-dog-example3.png)\n![sks dog example 4](./sks-dog-example4.png)\n",
+              "extracted_code": ""
+            },
+            {
+              "id": "AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora",
+              "author": "AdamLucek",
+              "sha": "9ecc684be03ea167e2454f5573e8ff2dd900f737",
+              "created_at": "2024-06-25T07:38:05+00:00",
+              "last_modified": "2024-06-30T19:20:09+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 52,
+              "likes": 2,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "checkpoint-500/optimizer.bin"
+                },
+                {
+                  "rfilename": "checkpoint-500/pytorch_lora_weights.safetensors"
+                },
+                {
+                  "rfilename": "checkpoint-500/random_states_0.pkl"
+                },
+                {
+                  "rfilename": "checkpoint-500/scheduler.bin"
+                },
+                {
+                  "rfilename": "image_0.png"
+                },
+                {
+                  "rfilename": "image_1.png"
+                },
+                {
+                  "rfilename": "image_2.png"
+                },
+                {
+                  "rfilename": "image_3.png"
+                }
+              ],
+              "card_data": {
+                "license": "openrail++",
+                "language": [],
+                "library_name": "diffusers",
+                "tags": [
+                  "text-to-image",
+                  "text-to-image",
+                  "diffusers-training",
+                  "diffusers",
+                  "lora",
+                  "template:sd-lora",
+                  "stable-diffusion-xl",
+                  "stable-diffusion-xl-diffusers"
+                ],
+                "datasets": [
+                  "AdamLucek/green-chair"
+                ],
+                "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+                "task_categories": [],
+                "size_categories": [],
+                "metrics": [],
+                "widget": [
+                  {
+                    "text": "A photo of sks chair in an apartment",
+                    "output": {
+                      "url": "https://huggingface.co/AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora/resolve/main/image_0.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of sks chair in an apartment",
+                    "output": {
+                      "url": "https://huggingface.co/AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora/resolve/main/image_1.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of sks chair in an apartment",
+                    "output": {
+                      "url": "https://huggingface.co/AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora/resolve/main/image_2.png"
+                    }
+                  },
+                  {
+                    "text": "A photo of sks chair in an apartment",
+                    "output": {
+                      "url": "https://huggingface.co/AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora/resolve/main/image_3.png"
+                    }
+                  }
+                ]
+              },
+              "tags": [
+                "diffusers",
+                "tensorboard",
+                "text-to-image",
+                "diffusers-training",
+                "lora",
+                "template:sd-lora",
+                "stable-diffusion-xl",
+                "stable-diffusion-xl-diffusers",
+                "dataset:AdamLucek/green-chair",
+                "base_model:stabilityai/stable-diffusion-xl-base-1.0",
+                "base_model:adapter:stabilityai/stable-diffusion-xl-base-1.0",
+                "license:openrail++",
+                "region:us"
+              ],
+              "pipeline_tag": "text-to-image",
+              "library_name": "diffusers",
+              "readme": "---\nbase_model: stabilityai/stable-diffusion-xl-base-1.0\nlibrary_name: diffusers\nlicense: openrail++\ntags:\n- text-to-image\n- text-to-image\n- diffusers-training\n- diffusers\n- lora\n- template:sd-lora\n- stable-diffusion-xl\n- stable-diffusion-xl-diffusers\ninstance_prompt: a photo of sks chair\nwidget:\n- text: A photo of sks chair in an apartment\n  output:\n    url: image_0.png\n- text: A photo of sks chair in an apartment\n  output:\n    url: image_1.png\n- text: A photo of sks chair in an apartment\n  output:\n    url: image_2.png\n- text: A photo of sks chair in an apartment\n  output:\n    url: image_3.png\ndatasets:\n- AdamLucek/green-chair\n---\n\n# SDXL LoRA DreamBooth - AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora\n\n## Model description\n\nThese are LoRA DreamBooth weights for [stabilityai/stable-diffusion-xl-base-1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0).\n\nThe weights were trained using [DreamBooth](https://dreambooth.github.io/) on the [AdamLucek/green-chair](https://huggingface.co/datasets/AdamLucek/green-chair) Dataset.\n\nLoRA for the text encoder was enabled: **True**.\n\nSpecial VAE used for training: [madebyollin/sdxl-vae-fp16-fix](https://huggingface.co/madebyollin/sdxl-vae-fp16-fix).\n\n## Trigger words\n\nYou should use **a photo of sks chair** to trigger the image generation.\n\n## Example Generations\n\n**Reference Image**\n<img src=\"https://cdn-uploads.huggingface.co/production/uploads/65ba68a15d2ef0a4b2c892b4/hvvyMxmnXK36wAEoEPCn2.jpeg\" width=\"350\">\n**Generated Images**\n<img src=\"https://cdn-uploads.huggingface.co/production/uploads/65ba68a15d2ef0a4b2c892b4/tTVfzzi4H09-H8w4dAyA3.jpeg\" width=\"500\">\n*on a street in new york*, *in a desert*, *in a jungle*, *in the color blue*\n## Download model\n\nWeights for this model are available in Safetensors format.\n\n## Intended uses & limitations\n\n<div style=\"display: flex; align-items: center;\">\n  <img src=\"https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg\" width=\"100\">\n  <a href=\"https://colab.research.google.com/drive/1v503hMrThIy87xozZBMPSDBc53Bukk_1?usp=sharing\" style=\"margin-left: 10px;\">COLAB Notebook Here</a>\n</div>\n\n#### How to use\n\n```python\n# Load Stable Diffusion XL Base 1.0\npipe = DiffusionPipeline.from_pretrained(\n    \"stabilityai/stable-diffusion-xl-base-1.0\", \n    torch_dtype=torch.float16,\n    variant=\"fp16\", \n    use_safetensors=True\n).to(\"cuda\")\n\n# Optional, enable cpu offloading\npipe.enable_model_cpu_offload()\n\n# Load LoRA Weights\npipe.load_lora_weights(\"AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora\")\n\n# Generate an Image\nimage = pipe(\n    prompt = \"a photo of sks chair\",\n    num_inference_steps=50,\n    height=1024,\n    width=1024,\n).images[0]\n\n# Save the Image\nimage.save(\"green_chair.png\")\n```\n\n#### Limitations and bias\n\n**Note**: Limited tuning of hyperparameters\n\n**Note**: See original Stable Diffusion XL Base 1.0 page for additional limitations and biases\n\n## Training details\n\n**Video Overview**\n<a href=\"https://youtu.be/v89kB4OScOA\">\n  <img src=\"https://i.imgur.com/fW6hHu2.png\" width=\"350\">\n</a>\n\nTrained using [Dreambooth](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_sdxl.md) via [Diffusers](https://huggingface.co/docs/diffusers/main/en/index) on a single A100\n\nTraining Script:\n```\naccelerate launch train_dreambooth_lora_sdxl.py \\\n  --pretrained_model_name_or_path=\"stabilityai/stable-diffusion-xl-base-1.0\"  \\\n  --dataset_name=\"AdamLucek/green-chair\" \\\n  --pretrained_vae_model_name_or_path=\"madebyollin/sdxl-vae-fp16-fix\" \\\n  --output_dir=\"lora-trained-xl\" \\\n  --train_text_encoder \\\n  --instance_prompt=\"a photo of sks chair\" \\\n  --resolution=1024 \\\n  --train_batch_size=1 \\\n  --gradient_accumulation_steps=4 \\\n  --learning_rate=1e-4 \\\n  --lr_scheduler=\"constant\" \\\n  --lr_warmup_steps=0 \\\n  --max_train_steps=500 \\\n  --validation_prompt=\"A photo of sks chair in an apartment\" \\\n  --validation_epochs=25 \\\n  --seed=\"0\" \\\n  --hub_model_id=\"sdxl-base-1.0-greenchair-dreambooth-lora\" \\\n  --push_to_hub\n```",
+              "extracted_code": "from diffusers import DiffusionPipeline\nimport torch\n\n# Load Stable Diffusion XL Base 1.0\npipe = DiffusionPipeline.from_pretrained(\n    \"stabilityai/stable-diffusion-xl-base-1.0\", \n    torch_dtype=torch.float16,\n    variant=\"fp16\", \n    use_safetensors=True\n).to(\"cuda\")\n\n# Optional, enable cpu offloading\npipe.enable_model_cpu_offload()\n\n# Load LoRA Weights\npipe.load_lora_weights(\"AdamLucek/sdxl-base-1.0-greenchair-dreambooth-lora\")\n\n# Generate an Image\nimage = pipe(\n    prompt = \"a photo of sks chair\",\n    num_inference_steps=50,\n    height=1024,\n    width=1024,\n).images[0]\n\n# Save the Image\nimage.save(\"green_chair.png\")"
+            }
+          ],
+          "datasets": [
+            {
+              "id": "AISNP/COCO2017-captions",
+              "author": "AISNP",
+              "sha": "46d71976cde4aa165792319bca866a7965e43eee",
+              "created_at": "2025-09-09T17:11:31+00:00",
+              "last_modified": "2025-09-09T22:49:57+00:00",
+              "private": false,
+              "gated": false,
+              "disabled": false,
+              "downloads": 173,
+              "likes": 0,
+              "siblings": [
+                {
+                  "rfilename": ".gitattributes"
+                },
+                {
+                  "rfilename": "README.md"
+                },
+                {
+                  "rfilename": "data/train-00000-of-00037.parquet"
+                },
+                {
+                  "rfilename": "data/train-00001-of-00037.parquet"
+                },
+                {
+                  "rfilename": "data/train-00002-of-00037.parquet"
+                },
+                {
+                  "rfilename": "data/train-00003-of-00037.parquet"
+                },
+                {
+                  "rfilename": "data/train-00004-of-00037.parquet"
+                },
+                {
+                  "rfilename": "data/train-00005-of-00037.parquet"
+                },
+                {
+                  "rfilename": "data/train-00006-of-00037.parquet"
+                },
+                {
+                  "rfilename": "data/train-00007-of-00037.parquet"
+                }
+              ],
+              "card_data": {
+                "license": "cc-by-4.0",
+                "language": [
+                  "en"
+                ],
+                "tags": [],
+                "datasets": [],
+                "task_categories": [
+                  "image-to-text"
+                ],
+                "size_categories": [],
+                "metrics": [],
+                "widget": []
+              },
+              "tags": [
+                "task_categories:image-to-text",
+                "language:en",
+                "license:cc-by-4.0",
+                "size_categories:100K<n<1M",
+                "format:parquet",
+                "modality:image",
+                "modality:text",
+                "library:datasets",
+                "library:dask",
+                "library:mlcroissant",
+                "library:polars",
+                "region:us"
+              ],
+              "readme": "---\nlicense: cc-by-4.0\ndataset_info:\n  features:\n  - name: image\n    dtype: image\n  - name: caption\n    dtype: string\n  - name: coco_url\n    dtype: string\n  - name: flickr_url\n    dtype: string\n  - name: date_captured\n    dtype: timestamp[s]\n  splits:\n  - name: train\n    num_bytes: 18241178225.122\n    num_examples: 118287\n  - name: validation\n    num_bytes: 787170448\n    num_examples: 5000\n  download_size: 20103610208\n  dataset_size: 19028348673.122\nconfigs:\n- config_name: default\n  data_files:\n  - split: train\n    path: data/train-*\n  - split: validation\n    path: data/validation-*\ntask_categories:\n- image-to-text\nlanguage:\n- en\n---",
+              "extracted_code": ""
+            }
+          ]
+        }
+      }
     }
   },
   "idea_info_history": [
