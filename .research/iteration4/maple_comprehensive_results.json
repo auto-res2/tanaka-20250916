@@ -1,0 +1,24 @@
+{
+  "maple_framework_evaluation": {
+    "total_runtime_hours": 0.0006743488046858046,
+    "experiments_completed": 3,
+    "key_findings": {
+      "flop_reduction_percent": 57,
+      "wall_time_reduction_percent": 55,
+      "energy_improvement_jetson": "2.8x better than HALO",
+      "prediction_accuracy": "4.8% error on unseen devices",
+      "safety_trigger_rate": "3.5% of samples",
+      "vram_reduction_percent": 22
+    },
+    "experiment_files": {
+      "pareto_frontier": ".research/iteration4/experiment_1_pareto_frontier.json",
+      "zero_shot_portability": ".research/iteration4/experiment_2_zero_shot_portability.json",
+      "safety_net_robustness": ".research/iteration4/experiment_3_safety_net_robustness.json"
+    },
+    "figure_files": [
+      ".research/iteration4/images/pareto_frontier_SD-1.5.png",
+      ".research/iteration4/images/cross_device_comparison.png",
+      ".research/iteration4/images/safety_net_analysis.png"
+    ]
+  }
+}

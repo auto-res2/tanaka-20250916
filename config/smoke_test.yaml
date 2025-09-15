@@ -1,5 +1,5 @@
 
-output_dir: ".research/iteration3"
+output_dir: ".research/iteration4"
 
 smoke_test:
   batch_size: 2
